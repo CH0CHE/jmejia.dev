@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Code2, Cloud, Zap, GitMerge, Layers, Cpu } from 'lucide-react'
+import { Cloud, Zap, GitMerge, Layers } from 'lucide-react'
 import { Container } from '@/components/shared/container'
 import { SectionWrapper, SectionHeading } from '@/components/shared/section-wrapper'
 import { GradientText } from '@/components/shared/gradient-text'

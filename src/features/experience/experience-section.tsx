@@ -63,12 +63,7 @@ export function ExperienceSection() {
                   </div>
 
                   {/* Desktop layout */}
-                  <div
-                    className={cn(
-                      'md:grid md:grid-cols-2 md:gap-8',
-                      i % 2 !== 0 && 'md:direction-rtl'
-                    )}
-                  >
+                  <div className="md:grid md:grid-cols-2 md:gap-8">
                     {/* Date column (desktop) */}
                     <div
                       className={cn(

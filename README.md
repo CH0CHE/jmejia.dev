@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# jmejia.dev
 
-## Getting Started
+Portfolio personal de **Josue Francisco Mejia Morales** — Full Stack Software Engineer, Ciudad de Guatemala.
 
-First, run the development server:
+## Stack
+
+| Capa | Tecnología |
+|---|---|
+| Framework | Next.js 16 (App Router) |
+| Lenguaje | TypeScript |
+| Estilos | Tailwind CSS v4 |
+| Animaciones | Framer Motion v12 |
+| Componentes | shadcn/ui (Base UI) |
+| Iconos | Lucide React v1 |
+| Deploy | Vercel |
+
+## Inicio rápido
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abre [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Producción
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm run start
+```
 
-## Learn More
+## Variables de entorno
 
-To learn more about Next.js, take a look at the following resources:
+No se requieren variables de entorno para el sitio base. Si integras un servicio de email en el formulario de contacto, agrega:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```env
+# Ejemplo para Resend
+RESEND_API_KEY=re_xxxxxxxxxxxx
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Personalización
 
-## Deploy on Vercel
+### Agregar o editar proyectos
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Edita `src/data/projects.ts` y coloca screenshots en `public/projects/<slug>.webp`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Actualizar experiencia
+
+Edita `src/data/experience.ts`.
+
+### Cambiar número de WhatsApp
+
+Busca `wa.me/` en `src/data/navigation.ts` y `src/features/contact/contact-section.tsx` y reemplaza el número.
+
+### CV descargable
+
+Coloca el archivo en `public/cv/Josue-Mejia-CV.pdf`. El botón en la navbar apunta a esa ruta.
+
+## Estructura
+
+```
+src/
+├── app/             # Routes, layout, metadata, OG image
+├── components/
+│   ├── layout/      # Navbar, Footer
+│   ├── shared/      # Container, GradientText, TechBadge, etc.
+│   └── ui/          # shadcn/ui primitives
+├── data/            # Projects, experience, technologies, navigation
+├── features/        # One folder per section (hero, about, …)
+├── hooks/           # useScrollPosition, useActiveSection, useMediaQuery
+└── types/           # Shared TypeScript interfaces
+```
+
+## Deploy en Vercel
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
+
+1. Importa el repositorio en Vercel.
+2. Vercel detecta Next.js automáticamente.
+3. Sin configuración adicional necesaria.
