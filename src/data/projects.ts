@@ -5,14 +5,14 @@ export const projects: Project[] = [
     id: 'iuris360',
     name: 'Iuris360',
     description:
-      'Plataforma legal digital para la gestión de casos jurídicos en Guatemala.',
+      'Sitio institucional para firma legal guatemalteca especializada en servicios de divorcio y asesoría jurídica integral.',
     longDescription:
-      'Sistema integral de gestión legal que permite a bufetes de abogados administrar sus casos, clientes y documentación de forma eficiente y segura.',
-    technologies: ['Next.js', 'TypeScript', 'Node.js', 'PostgreSQL', 'AWS'],
+      'Plataforma web moderna con navegación por anclas, integración de WhatsApp con mensajes prefilled, embed de Google Maps y Waze, sección FAQ con accordion, y diseño mobile-first. Desarrollado con Next.js 16, App Router y Tailwind CSS v4. Desplegado en Vercel con analytics habilitado.',
+    technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'React', 'shadcn/ui', 'Vercel'],
     url: 'https://iuris360gt.com/',
     github: 'https://github.com/CH0CHE/iuris360',
     image: '/projects/iuris360.png',
-    year: 2024,
+    year: 2025,
     featured: true,
   },
 ]
