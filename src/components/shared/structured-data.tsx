@@ -1,3 +1,5 @@
+import { env } from '@/lib/env'
+
 const personSchema = {
   '@context': 'https://schema.org',
   '@type': 'Person',
@@ -5,16 +7,13 @@ const personSchema = {
   givenName: 'Josue',
   familyName: 'Mejia Morales',
   jobTitle: 'Full Stack Software Engineer',
-  url: 'https://jmejia.dev',
-  email: 'mailto:josue.mejia@digifact.com',
-  image: 'https://jmejia.dev/opengraph-image',
-  sameAs: [
-    'https://github.com/CH0CHE',
-    'https://linkedin.com/in/josue-mejia',
-  ],
+  url: env.siteUrl,
+  email: `mailto:${env.email}`,
+  image: `${env.siteUrl}/opengraph-image`,
+  sameAs: [env.github, env.linkedin],
   address: {
     '@type': 'PostalAddress',
-    addressLocality: 'Ciudad de Guatemala',
+    addressLocality: env.location,
     addressCountry: 'GT',
   },
   knowsAbout: [
@@ -38,7 +37,7 @@ const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   name: 'Josue Mejia — Portfolio',
-  url: 'https://jmejia.dev',
+  url: env.siteUrl,
   description:
     'Full Stack Software Engineer especializado en Next.js, React, .NET y arquitecturas cloud en AWS.',
   author: {

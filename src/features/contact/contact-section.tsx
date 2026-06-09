@@ -20,6 +20,7 @@ import { Label } from '@/components/ui/label'
 import { Container } from '@/components/shared/container'
 import { SectionWrapper, SectionHeading } from '@/components/shared/section-wrapper'
 import { GithubIcon, LinkedinIcon, WhatsAppIcon } from '@/components/shared/icons'
+import { env } from '@/lib/env'
 
 // ─── Contact info ──────────────────────────────────────────────────────────────
 
@@ -27,32 +28,32 @@ const contactMethods = [
   {
     icon: Mail,
     label: 'Email',
-    value: 'josue.mejia@digifact.com',
-    href: 'mailto:josue.mejia@digifact.com',
+    value: env.email,
+    href: `mailto:${env.email}`,
     color: 'text-primary',
     bg: 'bg-primary/10',
   },
   {
     icon: GithubIcon,
     label: 'GitHub',
-    value: 'github.com/CH0CHE',
-    href: 'https://github.com/CH0CHE',
+    value: env.github.replace('https://', ''),
+    href: env.github,
     color: 'text-foreground',
     bg: 'bg-surface-elevated',
   },
   {
     icon: LinkedinIcon,
     label: 'LinkedIn',
-    value: 'linkedin.com/in/josue-mejia',
-    href: 'https://linkedin.com/in/josue-mejia',
+    value: env.linkedin.replace('https://', ''),
+    href: env.linkedin,
     color: 'text-[#0A66C2]',
     bg: 'bg-[#0A66C2]/10',
   },
   {
     icon: WhatsAppIcon,
     label: 'WhatsApp',
-    value: '+502 · actualizar número',
-    href: 'https://wa.me/50200000000',
+    value: `+${env.whatsapp}`,
+    href: `https://wa.me/${env.whatsapp}`,
     color: 'text-[#25D366]',
     bg: 'bg-[#25D366]/10',
   },
@@ -368,7 +369,7 @@ export function ContactSection() {
                     Ubicación
                   </p>
                   <p className="text-sm font-medium text-foreground">
-                    Ciudad de Guatemala, Guatemala
+                    {env.location}
                   </p>
                 </div>
               </div>

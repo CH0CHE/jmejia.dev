@@ -1,4 +1,5 @@
 import type { NavItem, SocialLink } from '@/types'
+import { env } from '@/lib/env'
 
 export const navItems: NavItem[] = [
   { label: 'Inicio', href: '#hero' },
@@ -10,12 +11,8 @@ export const navItems: NavItem[] = [
 ]
 
 export const socialLinks: SocialLink[] = [
-  { label: 'GitHub', url: 'https://github.com/CH0CHE', icon: 'github' },
-  {
-    label: 'LinkedIn',
-    url: 'https://linkedin.com/in/josue-mejia',
-    icon: 'linkedin',
-  },
-  { label: 'Email', url: 'mailto:josue.mejia@digifact.com', icon: 'mail' },
-  { label: 'WhatsApp', url: 'https://wa.me/50200000000', icon: 'message-circle' },
+  { label: 'GitHub', url: env.github, icon: 'github' },
+  { label: 'LinkedIn', url: env.linkedin, icon: 'linkedin' },
+  { label: 'Email', url: `mailto:${env.email}`, icon: 'mail' },
+  { label: 'WhatsApp', url: `https://wa.me/${env.whatsapp}`, icon: 'message-circle' },
 ]

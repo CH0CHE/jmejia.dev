@@ -1,4 +1,5 @@
 import { ImageResponse } from 'next/og'
+import { env } from '@/lib/env'
 
 export const alt = 'Josue Mejia — Full Stack Software Engineer'
 export const size = { width: 1200, height: 630 }
@@ -80,7 +81,7 @@ export default function Image() {
               letterSpacing: '-0.5px',
             }}
           >
-            jmejia.dev
+            {new URL(env.siteUrl).hostname}
           </span>
         </div>
 
@@ -144,7 +145,7 @@ export default function Image() {
           }}
         >
           <span style={{ fontSize: '18px', color: MUTED }}>
-            Ciudad de Guatemala 🇬🇹
+            {env.location} 🇬🇹
           </span>
           <div
             style={{

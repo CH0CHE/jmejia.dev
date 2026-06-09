@@ -5,6 +5,7 @@ import { Footer } from '@/components/layout/footer'
 import { SkipLink } from '@/components/shared/skip-link'
 import { StructuredData } from '@/components/shared/structured-data'
 import { MotionProvider } from '@/components/shared/motion-provider'
+import { env } from '@/lib/env'
 import './globals.css'
 
 const geistSans = Geist({
@@ -47,16 +48,16 @@ export const metadata: Metadata = {
     'Josue Mejia',
     'Josue Francisco Mejia Morales',
   ],
-  authors: [{ name: 'Josue Francisco Mejia Morales', url: 'https://jmejia.dev' }],
+  authors: [{ name: 'Josue Francisco Mejia Morales', url: env.siteUrl }],
   creator: 'Josue Francisco Mejia Morales',
-  metadataBase: new URL('https://jmejia.dev'),
+  metadataBase: new URL(env.siteUrl),
   alternates: {
-    canonical: 'https://jmejia.dev',
+    canonical: env.siteUrl,
   },
   openGraph: {
     type: 'website',
     locale: 'es_GT',
-    url: 'https://jmejia.dev',
+    url: env.siteUrl,
     title: 'Josue Mejia — Full Stack Software Engineer',
     description:
       'Full Stack Software Engineer especializado en Next.js, React, .NET y arquitecturas cloud en AWS.',

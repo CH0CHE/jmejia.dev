@@ -3,6 +3,7 @@ import { Mail, MessageCircle } from 'lucide-react'
 import { Container } from '@/components/shared/container'
 import { GithubIcon, LinkedinIcon, WhatsAppIcon } from '@/components/shared/icons'
 import { navItems, socialLinks } from '@/data/navigation'
+import { env } from '@/lib/env'
 
 type IconKey = 'github' | 'linkedin' | 'mail' | 'message-circle'
 
@@ -26,7 +27,7 @@ export function Footer() {
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                 Full Stack Software Engineer
                 <br />
-                Ciudad de Guatemala, Guatemala
+                {env.location}
               </p>
               <div className="mt-5 flex gap-3">
                 {socialLinks.map(({ label, url, icon }) => {
