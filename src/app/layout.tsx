@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
+import { Navbar } from '@/components/layout/navbar'
+import { Footer } from '@/components/layout/footer'
 import './globals.css'
 
 const geistSans = Geist({
@@ -102,8 +104,10 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-screen overflow-x-hidden bg-background text-foreground antialiased">
-        {children}
-      </body>
+          <Navbar />
+          {children}
+          <Footer />
+        </body>
     </html>
   )
 }
