@@ -2,6 +2,9 @@ import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { Navbar } from '@/components/layout/navbar'
 import { Footer } from '@/components/layout/footer'
+import { SkipLink } from '@/components/shared/skip-link'
+import { StructuredData } from '@/components/shared/structured-data'
+import { MotionProvider } from '@/components/shared/motion-provider'
 import './globals.css'
 
 const geistSans = Geist({
@@ -58,21 +61,12 @@ export const metadata: Metadata = {
     description:
       'Full Stack Software Engineer especializado en Next.js, React, .NET y arquitecturas cloud en AWS.',
     siteName: 'Josue Mejia',
-    images: [
-      {
-        url: '/og-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'Josue Mejia — Full Stack Software Engineer',
-      },
-    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Josue Mejia — Full Stack Software Engineer',
     description:
       'Full Stack Software Engineer especializado en Next.js, React, .NET y arquitecturas cloud en AWS.',
-    images: ['/og-image.png'],
   },
   robots: {
     index: true,
@@ -87,8 +81,6 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: '/favicon.ico',
-    shortcut: '/favicon-16x16.png',
-    apple: '/apple-touch-icon.png',
   },
 }
 
@@ -103,11 +95,17 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} dark`}
       suppressHydrationWarning
     >
+      <head>
+        <StructuredData />
+      </head>
       <body className="min-h-screen overflow-x-hidden bg-background text-foreground antialiased">
+        <SkipLink />
+        <MotionProvider>
           <Navbar />
           {children}
           <Footer />
-        </body>
+        </MotionProvider>
+      </body>
     </html>
   )
 }

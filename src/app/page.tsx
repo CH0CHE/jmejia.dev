@@ -7,7 +7,7 @@ import { ContactSection } from '@/features/contact/contact-section'
 
 export default function Home() {
   return (
-    <main>
+    <main id="main-content">
       <HeroSection />
       <AboutSection />
       <TechnologiesSection />
