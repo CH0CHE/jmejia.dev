@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Navbar } from '@/components/layout/navbar'
 import { Footer } from '@/components/layout/footer'
 import { SkipLink } from '@/components/shared/skip-link'
@@ -109,6 +110,7 @@ export default function RootLayout({
             <Footer />
           </MotionProvider>
         </LanguageProvider>
+        <SpeedInsights />
       </body>
     </html>
   )
