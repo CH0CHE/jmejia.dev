@@ -1,8 +1,15 @@
+export type Language = 'es' | 'en'
+
+export interface Localized {
+  es: string
+  en: string
+}
+
 export interface Project {
   id: string
   name: string
-  description: string
-  longDescription?: string
+  description: Localized
+  longDescription?: Localized
   technologies: string[]
   url?: string
   github?: string
@@ -33,22 +40,22 @@ export interface Experience {
   role: string
   startDate: string
   endDate?: string
-  description: string
+  description: Localized
   technologies: string[]
-  highlights: string[]
+  highlights: Localized[]
   icon?: string
 }
 
 export interface Education {
   id: string
   institution: string
-  degree: string
+  degree: Localized
   startDate: string
   endDate?: string
-  note?: string
-  description?: string
+  note?: Localized
+  description?: Localized
   technologies?: string[]
-  highlights?: string[]
+  highlights?: Localized[]
   icon?: string
   current?: boolean
 }
@@ -60,6 +67,6 @@ export interface SocialLink {
 }
 
 export interface NavItem {
-  label: string
+  key: 'home' | 'about' | 'technologies' | 'projects' | 'experience' | 'education' | 'contact'
   href: string
 }

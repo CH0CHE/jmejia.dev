@@ -8,15 +8,19 @@ import { Container } from '@/components/shared/container'
 import { SectionWrapper, SectionHeading } from '@/components/shared/section-wrapper'
 import { TechBadge } from '@/components/shared/tech-badge'
 import { education } from '@/data/education'
+import { useLanguage } from '@/lib/i18n/language-provider'
+import { localizeDate } from '@/lib/i18n/format-date'
 
 export function EducationSection() {
+  const { language, t } = useLanguage()
+
   return (
     <SectionWrapper id="education">
       <Container size="lg">
         <SectionHeading
-          eyebrow="Formación"
-          title="Educación"
-          description="Formación académica en sistemas de información y telecomunicaciones."
+          eyebrow={t.education.eyebrow}
+          title={t.education.title}
+          description={t.education.description}
         />
 
         <div className="relative mx-auto max-w-3xl">
@@ -91,14 +95,16 @@ export function EducationSection() {
                       <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
                         <Calendar className="h-3.5 w-3.5" aria-hidden />
                         <span>
-                          {edu.startDate}
-                          {edu.endDate ? ` — ${edu.endDate}` : ' — Presente'}
+                          {localizeDate(edu.startDate, language)}
+                          {edu.endDate
+                            ? ` — ${localizeDate(edu.endDate, language)}`
+                            : ` — ${t.common.present}`}
                         </span>
                       </div>
                       {edu.current && (
                         <span className="mt-1 inline-flex items-center gap-1 rounded-full bg-primary/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-primary">
                           <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                          En curso
+                          {t.common.inProgress}
                         </span>
                       )}
                     </div>
@@ -109,11 +115,13 @@ export function EducationSection() {
                     {/* Mobile date */}
                     <div className="mb-3 flex items-center gap-1.5 text-xs text-muted-foreground md:hidden">
                       <Calendar className="h-3 w-3" aria-hidden />
-                      {edu.startDate}
-                      {edu.endDate ? ` — ${edu.endDate}` : ' — Presente'}
+                      {localizeDate(edu.startDate, language)}
+                      {edu.endDate
+                        ? ` — ${localizeDate(edu.endDate, language)}`
+                        : ` — ${t.common.present}`}
                       {edu.current && (
                         <span className="ml-1 rounded-full bg-primary/15 px-1.5 py-0.5 text-[10px] font-semibold text-primary">
-                          En curso
+                          {t.common.inProgress}
                         </span>
                       )}
                     </div>
@@ -143,20 +151,20 @@ export function EducationSection() {
                             </p>
                           )}
                           <h3 className="mt-0.5 text-base font-bold text-foreground sm:text-lg">
-                            {edu.degree}
+                            {edu.degree[language]}
                           </h3>
                         </div>
                       </div>
 
                       {edu.note && (
                         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                          {edu.note}
+                          {edu.note[language]}
                         </p>
                       )}
 
                       {edu.description && (
                         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                          {edu.description}
+                          {edu.description[language]}
                         </p>
                       )}
 
@@ -164,14 +172,14 @@ export function EducationSection() {
                         <ul className="mt-4 space-y-1.5" role="list">
                           {edu.highlights.map((h) => (
                             <li
-                              key={h}
+                              key={h.es}
                               className="flex items-start gap-2 text-sm text-muted-foreground"
                             >
                               <ChevronRight
                                 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary"
                                 aria-hidden
                               />
-                              {h}
+                              {h[language]}
                             </li>
                           ))}
                         </ul>

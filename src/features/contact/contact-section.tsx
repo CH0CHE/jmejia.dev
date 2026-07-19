@@ -7,7 +7,6 @@ import {
   CheckCircle2,
   Mail,
   MapPin,
-  MessageCircle,
   Briefcase,
   Laptop,
   Users,
@@ -20,11 +19,13 @@ import { Label } from '@/components/ui/label'
 import { Container } from '@/components/shared/container'
 import { SectionWrapper, SectionHeading } from '@/components/shared/section-wrapper'
 import { GithubIcon, LinkedinIcon, WhatsAppIcon } from '@/components/shared/icons'
+import { useLanguage } from '@/lib/i18n/language-provider'
+import type { Dictionary } from '@/lib/i18n/dictionaries'
 import { env } from '@/lib/env'
 
 // ─── Contact info ──────────────────────────────────────────────────────────────
 
-const contactMethods = [
+const CONTACT_METHODS_META = [
   {
     icon: Mail,
     label: 'Email',
@@ -59,11 +60,7 @@ const contactMethods = [
   },
 ]
 
-const availability = [
-  { icon: Briefcase, label: 'Proyectos freelance' },
-  { icon: Laptop, label: 'Posición full-time' },
-  { icon: Users, label: 'Consultoría técnica' },
-]
+const AVAILABILITY_ICONS = [Briefcase, Laptop, Users]
 
 // ─── Form types & validation ───────────────────────────────────────────────────
 
@@ -76,15 +73,16 @@ interface FormData {
 
 type FormStatus = 'idle' | 'loading' | 'success' | 'error'
 
-function validate(data: FormData): Partial<Record<keyof FormData, string>> {
+function validate(
+  data: FormData,
+  errors: Dictionary['contact']['errors']
+): Partial<Record<keyof FormData, string>> {
   const errs: Partial<Record<keyof FormData, string>> = {}
-  if (!data.name.trim()) errs.name = 'El nombre es requerido.'
-  if (!data.email.trim()) errs.email = 'El email es requerido.'
-  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email))
-    errs.email = 'Ingresa un email válido.'
-  if (!data.message.trim()) errs.message = 'El mensaje es requerido.'
-  else if (data.message.trim().length < 10)
-    errs.message = 'El mensaje debe tener al menos 10 caracteres.'
+  if (!data.name.trim()) errs.name = errors.nameRequired
+  if (!data.email.trim()) errs.email = errors.emailRequired
+  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) errs.email = errors.emailInvalid
+  if (!data.message.trim()) errs.message = errors.messageRequired
+  else if (data.message.trim().length < 10) errs.message = errors.messageTooShort
   return errs
 }
 
@@ -129,6 +127,7 @@ function Field({
 // ─── Contact form ──────────────────────────────────────────────────────────────
 
 function ContactForm() {
+  const { t } = useLanguage()
   const [status, setStatus] = useState<FormStatus>('idle')
   const [data, setData] = useState<FormData>(EMPTY)
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({})
@@ -142,7 +141,7 @@ function ContactForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    const errs = validate(data)
+    const errs = validate(data, t.contact.errors)
     if (Object.keys(errs).length > 0) {
       setErrors(errs)
       return
@@ -180,9 +179,9 @@ function ContactForm() {
           <CheckCircle2 className="h-14 w-14 text-primary" aria-hidden />
         </motion.div>
         <div>
-          <h3 className="text-xl font-bold text-foreground">¡Mensaje enviado!</h3>
+          <h3 className="text-xl font-bold text-foreground">{t.contact.success.title}</h3>
           <p className="mt-2 text-sm text-muted-foreground">
-            Gracias por escribirme. Te responderé a la brevedad.
+            {t.contact.success.description}
           </p>
         </div>
         <button
@@ -196,33 +195,33 @@ function ContactForm() {
             'border-primary/30 hover:bg-primary/10 hover:text-primary'
           )}
         >
-          Enviar otro mensaje
+          {t.contact.success.resend}
         </button>
       </motion.div>
     )
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="space-y-5" aria-label="Formulario de contacto">
+    <form onSubmit={handleSubmit} noValidate className="space-y-5" aria-label={t.contact.formAria}>
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-        <Field id="name" label="Nombre *" error={errors.name}>
+        <Field id="name" label={t.contact.nameLabel} error={errors.name}>
           <Input
             id="name"
             value={data.name}
             onChange={set('name')}
-            placeholder="Tu nombre"
+            placeholder={t.contact.namePlaceholder}
             autoComplete="name"
             aria-invalid={!!errors.name}
             className="h-11 bg-surface-elevated/50"
           />
         </Field>
-        <Field id="email" label="Email *" error={errors.email}>
+        <Field id="email" label={t.contact.emailLabel} error={errors.email}>
           <Input
             id="email"
             type="email"
             value={data.email}
             onChange={set('email')}
-            placeholder="tu@email.com"
+            placeholder={t.contact.emailPlaceholder}
             autoComplete="email"
             aria-invalid={!!errors.email}
             className="h-11 bg-surface-elevated/50"
@@ -230,22 +229,22 @@ function ContactForm() {
         </Field>
       </div>
 
-      <Field id="subject" label="Asunto">
+      <Field id="subject" label={t.contact.subjectLabel}>
         <Input
           id="subject"
           value={data.subject}
           onChange={set('subject')}
-          placeholder="¿Sobre qué quieres hablar?"
+          placeholder={t.contact.subjectPlaceholder}
           className="h-11 bg-surface-elevated/50"
         />
       </Field>
 
-      <Field id="message" label="Mensaje *" error={errors.message}>
+      <Field id="message" label={t.contact.messageLabel} error={errors.message}>
         <Textarea
           id="message"
           value={data.message}
           onChange={set('message')}
-          placeholder="Cuéntame sobre tu proyecto, idea o propuesta..."
+          placeholder={t.contact.messagePlaceholder}
           rows={6}
           aria-invalid={!!errors.message}
           className="resize-none bg-surface-elevated/50 leading-relaxed"
@@ -267,18 +266,18 @@ function ContactForm() {
               className="h-4 w-4 animate-spin rounded-full border-2 border-primary-foreground/30 border-t-primary-foreground"
               aria-hidden
             />
-            Enviando…
+            {t.contact.sending}
           </>
         ) : (
           <>
-            Enviar mensaje
+            {t.contact.send}
             <Send className="h-4 w-4" aria-hidden />
           </>
         )}
       </button>
 
       <p className="text-center text-xs text-muted-foreground/60">
-        * Campos requeridos. Tu información no será compartida con terceros.
+        {t.contact.requiredNote}
       </p>
     </form>
   )
@@ -294,22 +293,26 @@ const fadeUp = (delay = 0) => ({
 })
 
 export function ContactSection() {
+  const { t } = useLanguage()
+  const availability = AVAILABILITY_ICONS.map((icon, i) => ({
+    icon,
+    label: t.contact.availability[i],
+  }))
+
   return (
     <SectionWrapper id="contact">
       <Container size="lg">
         <SectionHeading
-          eyebrow="Contacto"
-          title="Hablemos"
-          description="¿Tienes un proyecto en mente o buscas un desarrollador para tu equipo? Estoy disponible."
+          eyebrow={t.contact.eyebrow}
+          title={t.contact.title}
+          description={t.contact.description}
         />
 
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
           {/* ── Left: info ── */}
           <motion.div {...fadeUp(0)} className="flex flex-col gap-8">
             <p className="text-base leading-relaxed text-muted-foreground">
-              Me apasiona construir productos digitales de calidad. Si tienes una idea,
-              un proyecto o simplemente quieres hablar sobre tecnología, escríbeme —
-              respondo en menos de 24 horas.
+              {t.contact.intro}
             </p>
 
             {/* Availability */}
@@ -320,7 +323,7 @@ export function ContactSection() {
                   <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-primary" />
                 </span>
                 <p className="text-sm font-semibold text-foreground">
-                  Disponible para:
+                  {t.contact.availableFor}
                 </p>
               </div>
               <ul className="space-y-2.5" role="list">
@@ -335,7 +338,7 @@ export function ContactSection() {
 
             {/* Contact methods */}
             <div className="space-y-3">
-              {contactMethods.map(({ icon: Icon, label, value, href, color, bg }, i) => (
+              {CONTACT_METHODS_META.map(({ icon: Icon, label, value, href, color, bg }, i) => (
                 <motion.a
                   key={label}
                   href={href}
@@ -366,7 +369,7 @@ export function ContactSection() {
                 </div>
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-                    Ubicación
+                    {t.contact.location}
                   </p>
                   <p className="text-sm font-medium text-foreground">
                     {env.location}
@@ -379,7 +382,7 @@ export function ContactSection() {
           {/* ── Right: form ── */}
           <motion.div {...fadeUp(0.15)}>
             <div className="rounded-xl border border-border bg-surface p-6 sm:p-8">
-              <h3 className="mb-6 text-lg font-bold text-foreground">Envíame un mensaje</h3>
+              <h3 className="mb-6 text-lg font-bold text-foreground">{t.contact.formTitle}</h3>
               <ContactForm />
             </div>
           </motion.div>

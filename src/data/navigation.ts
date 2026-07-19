@@ -2,13 +2,13 @@ import type { NavItem, SocialLink } from '@/types'
 import { env } from '@/lib/env'
 
 export const navItems: NavItem[] = [
-  { label: 'Inicio', href: '#hero' },
-  { label: 'Sobre mí', href: '#about' },
-  { label: 'Tecnologías', href: '#technologies' },
-  { label: 'Proyectos', href: '#projects' },
-  { label: 'Experiencia', href: '#experience' },
-  { label: 'Educación', href: '#education' },
-  { label: 'Contacto', href: '#contact' },
+  { key: 'home', href: '#hero' },
+  { key: 'about', href: '#about' },
+  { key: 'technologies', href: '#technologies' },
+  { key: 'projects', href: '#projects' },
+  { key: 'experience', href: '#experience' },
+  { key: 'education', href: '#education' },
+  { key: 'contact', href: '#contact' },
 ]
 
 export const socialLinks: SocialLink[] = [

@@ -8,19 +8,22 @@ import { Container } from '@/components/shared/container'
 import { SectionWrapper, SectionHeading } from '@/components/shared/section-wrapper'
 import { GithubIcon } from '@/components/shared/icons'
 import { projects } from '@/data/projects'
+import { useLanguage } from '@/lib/i18n/language-provider'
 import { FeaturedProjectCard, ProjectCard } from './project-card'
 
 const featured = projects.filter((p) => p.featured)
 const rest = projects.filter((p) => !p.featured)
 
 export function ProjectsSection() {
+  const { t } = useLanguage()
+
   return (
     <SectionWrapper id="projects" variant="alt">
       <Container>
         <SectionHeading
-          eyebrow="Portafolio"
-          title="Proyectos que construí"
-          description="Software real, en producción, resolviendo problemas reales."
+          eyebrow={t.projects.eyebrow}
+          title={t.projects.title}
+          description={t.projects.description}
         />
 
         {/* Featured projects */}
@@ -42,7 +45,7 @@ export function ProjectsSection() {
                 viewport={{ once: true }}
                 className="mb-6 text-lg font-semibold text-muted-foreground"
               >
-                Otros proyectos
+                {t.projects.otherProjects}
               </motion.h3>
             )}
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -62,7 +65,7 @@ export function ProjectsSection() {
           className="mt-16 flex flex-col items-center gap-4 rounded-xl border border-border bg-surface px-6 py-10 text-center"
         >
           <p className="text-base font-medium text-muted-foreground">
-            ¿Quieres ver más proyectos y contribuciones?
+            {t.projects.moreQuestion}
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             <a
@@ -75,7 +78,7 @@ export function ProjectsSection() {
               )}
             >
               <GithubIcon className="h-4 w-4" />
-              Ver GitHub
+              {t.projects.viewGithub}
             </a>
             <a
               href="#contact"
@@ -85,7 +88,7 @@ export function ProjectsSection() {
               )}
             >
               <ExternalLink className="h-3.5 w-3.5" aria-hidden />
-              Hablemos de tu proyecto
+              {t.projects.talkAboutProject}
             </a>
           </div>
         </motion.div>

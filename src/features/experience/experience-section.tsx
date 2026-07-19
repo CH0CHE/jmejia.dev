@@ -8,17 +8,21 @@ import { Container } from '@/components/shared/container'
 import { SectionWrapper, SectionHeading } from '@/components/shared/section-wrapper'
 import { TechBadge } from '@/components/shared/tech-badge'
 import { experiences } from '@/data/experience'
+import { useLanguage } from '@/lib/i18n/language-provider'
+import { localizeDate } from '@/lib/i18n/format-date'
 
 const YEARS_EXP = new Date().getFullYear() - 2024
 
 export function ExperienceSection() {
+  const { language, t } = useLanguage()
+
   return (
     <SectionWrapper id="experience">
       <Container size="lg">
         <SectionHeading
-          eyebrow="Trayectoria"
-          title="Experiencia profesional"
-          description={`+${YEARS_EXP} años construyendo software real en producción.`}
+          eyebrow={t.experience.eyebrow}
+          title={t.experience.title}
+          description={`+${YEARS_EXP} ${t.experience.description}`}
         />
 
         {/* Timeline */}
@@ -99,14 +103,16 @@ export function ExperienceSection() {
                         <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
                           <Calendar className="h-3.5 w-3.5" aria-hidden />
                           <span>
-                            {exp.startDate}
-                            {exp.endDate ? ` — ${exp.endDate}` : ' — Presente'}
+                            {localizeDate(exp.startDate, language)}
+                            {exp.endDate
+                              ? ` — ${localizeDate(exp.endDate, language)}`
+                              : ` — ${t.common.present}`}
                           </span>
                         </div>
                         {isCurrent && (
                           <span className="mt-1 inline-flex items-center gap-1 rounded-full bg-primary/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-primary">
                             <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                            Actual
+                            {t.common.current}
                           </span>
                         )}
                       </div>
@@ -121,11 +127,13 @@ export function ExperienceSection() {
                       {/* Mobile date */}
                       <div className="mb-3 flex items-center gap-1.5 text-xs text-muted-foreground md:hidden">
                         <Calendar className="h-3 w-3" aria-hidden />
-                        {exp.startDate}
-                        {exp.endDate ? ` — ${exp.endDate}` : ' — Presente'}
+                        {localizeDate(exp.startDate, language)}
+                        {exp.endDate
+                          ? ` — ${localizeDate(exp.endDate, language)}`
+                          : ` — ${t.common.present}`}
                         {isCurrent && (
                           <span className="ml-1 rounded-full bg-primary/15 px-1.5 py-0.5 text-[10px] font-semibold text-primary">
-                            Actual
+                            {t.common.current}
                           </span>
                         )}
                       </div>
@@ -162,21 +170,21 @@ export function ExperienceSection() {
                         </div>
 
                         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                          {exp.description}
+                          {exp.description[language]}
                         </p>
 
                         {/* Highlights */}
                         <ul className="mt-4 space-y-1.5" role="list">
                           {exp.highlights.map((h) => (
                             <li
-                              key={h}
+                              key={h.es}
                               className="flex items-start gap-2 text-sm text-muted-foreground"
                             >
                               <ChevronRight
                                 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary"
                                 aria-hidden
                               />
-                              {h}
+                              {h[language]}
                             </li>
                           ))}
                         </ul>

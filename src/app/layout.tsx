@@ -5,6 +5,7 @@ import { Footer } from '@/components/layout/footer'
 import { SkipLink } from '@/components/shared/skip-link'
 import { StructuredData } from '@/components/shared/structured-data'
 import { MotionProvider } from '@/components/shared/motion-provider'
+import { LanguageProvider } from '@/lib/i18n/language-provider'
 import { env } from '@/lib/env'
 import './globals.css'
 
@@ -100,12 +101,14 @@ export default function RootLayout({
         <StructuredData />
       </head>
       <body className="min-h-screen overflow-x-hidden bg-background text-foreground antialiased">
-        <SkipLink />
-        <MotionProvider>
-          <Navbar />
-          {children}
-          <Footer />
-        </MotionProvider>
+        <LanguageProvider>
+          <SkipLink />
+          <MotionProvider>
+            <Navbar />
+            {children}
+            <Footer />
+          </MotionProvider>
+        </LanguageProvider>
       </body>
     </html>
   )

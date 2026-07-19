@@ -6,6 +6,8 @@ import { cn } from '@/lib/utils'
 import { Container } from '@/components/shared/container'
 import { SectionWrapper, SectionHeading } from '@/components/shared/section-wrapper'
 import { technologies } from '@/data/technologies'
+import { useLanguage } from '@/lib/i18n/language-provider'
+import type { Dictionary } from '@/lib/i18n/dictionaries'
 import type { TechCategory } from '@/types'
 
 // Brand colors per technology
@@ -35,13 +37,6 @@ const TECH_META: Record<string, { abbr: string; color: string; bg: string }> = {
   'GitHub':       { abbr: 'GH',  color: '#e2e8f0', bg: 'rgba(226,232,240,0.12)' },
 }
 
-const LEVEL_LABEL: Record<string, string> = {
-  expert: 'Experto',
-  advanced: 'Avanzado',
-  intermediate: 'Intermedio',
-  beginner: 'Básico',
-}
-
 const LEVEL_COUNT: Record<string, number> = {
   expert: 4,
   advanced: 3,
@@ -49,20 +44,23 @@ const LEVEL_COUNT: Record<string, number> = {
   beginner: 1,
 }
 
-const CATEGORIES: { value: 'all' | TechCategory; label: string }[] = [
-  { value: 'all',      label: 'Todas' },
-  { value: 'frontend', label: 'Frontend' },
-  { value: 'backend',  label: 'Backend' },
-  { value: 'cloud',    label: 'Cloud' },
-  { value: 'database', label: 'Bases de datos' },
-  { value: 'devops',   label: 'DevOps' },
-  { value: 'tools',    label: 'Herramientas' },
-]
+function getCategories(t: Dictionary): { value: 'all' | TechCategory; label: string }[] {
+  return [
+    { value: 'all', label: t.technologies.categories.all },
+    { value: 'frontend', label: t.technologies.categories.frontend },
+    { value: 'backend', label: t.technologies.categories.backend },
+    { value: 'cloud', label: t.technologies.categories.cloud },
+    { value: 'database', label: t.technologies.categories.database },
+    { value: 'devops', label: t.technologies.categories.devops },
+    { value: 'tools', label: t.technologies.categories.tools },
+  ]
+}
 
 function LevelDots({ level }: { level: string }) {
+  const { t } = useLanguage()
   const count = LEVEL_COUNT[level] ?? 2
   return (
-    <div className="flex gap-0.5" aria-label={LEVEL_LABEL[level]}>
+    <div className="flex gap-0.5" aria-label={t.technologies.levels[level as keyof Dictionary['technologies']['levels']]}>
       {[1, 2, 3, 4].map((i) => (
         <span
           key={i}
@@ -83,6 +81,7 @@ function TechCard({
   tech: (typeof technologies)[0]
   index: number
 }) {
+  const { t } = useLanguage()
   const meta = TECH_META[tech.name] ?? { abbr: tech.name.slice(0, 2).toUpperCase(), color: '#22d3ee', bg: 'rgba(34,211,238,0.12)' }
 
   return (
@@ -106,7 +105,7 @@ function TechCard({
       <div>
         <p className="text-sm font-semibold text-foreground leading-tight">{tech.name}</p>
         <p className="mt-0.5 text-[10px] uppercase tracking-wider text-muted-foreground/60">
-          {LEVEL_LABEL[tech.level]}
+          {t.technologies.levels[tech.level]}
         </p>
       </div>
 
@@ -118,22 +117,24 @@ function TechCard({
 
 export function TechnologiesSection() {
   const [active, setActive] = useState<'all' | TechCategory>('all')
+  const { t } = useLanguage()
+  const categories = getCategories(t)
 
   const filtered =
-    active === 'all' ? technologies : technologies.filter((t) => t.category === active)
+    active === 'all' ? technologies : technologies.filter((t2) => t2.category === active)
 
   return (
     <SectionWrapper id="technologies" variant="alt">
       <Container>
         <SectionHeading
-          eyebrow="Stack tecnológico"
-          title="Tecnologías que domino"
-          description="Herramientas con las que construyo software moderno, escalable y de alto rendimiento."
+          eyebrow={t.technologies.eyebrow}
+          title={t.technologies.title}
+          description={t.technologies.description}
         />
 
         {/* Category filter */}
-        <div className="mb-10 flex flex-wrap justify-center gap-2" role="tablist" aria-label="Filtrar por categoría">
-          {CATEGORIES.map(({ value, label }) => (
+        <div className="mb-10 flex flex-wrap justify-center gap-2" role="tablist" aria-label={t.technologies.filterAria}>
+          {categories.map(({ value, label }) => (
             <button
               key={value}
               role="tab"
@@ -170,7 +171,7 @@ export function TechnologiesSection() {
 
         {/* Legend */}
         <div className="mt-12 flex flex-wrap items-center justify-center gap-6 text-xs text-muted-foreground">
-          {Object.entries(LEVEL_LABEL).map(([key, label]) => (
+          {(Object.entries(t.technologies.levels) as [keyof Dictionary['technologies']['levels'], string][]).map(([key, label]) => (
             <div key={key} className="flex items-center gap-2">
               <div className="flex gap-0.5">
                 {[1, 2, 3, 4].map((i) => (

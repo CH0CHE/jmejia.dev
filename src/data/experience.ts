@@ -7,15 +7,32 @@ export const experiences: Experience[] = [
     role: 'Full Stack Developer',
     startDate: 'Junio 2024',
     icon: '/logos/digifact.webp',
-    description:
-      'Desarrollo de soluciones empresariales modernas para facturación electrónica y gestión de documentos fiscales en Guatemala.',
+    description: {
+      es: 'Desarrollo de soluciones empresariales modernas para facturación electrónica y gestión de documentos fiscales en Guatemala.',
+      en: 'Development of modern enterprise solutions for electronic invoicing and tax document management in Guatemala.',
+    },
     technologies: ['Next.js', 'TypeScript', 'C#', '.NET', 'SQL Server', 'AWS', 'React'],
     highlights: [
-      'Desarrollo de aplicaciones web empresariales con Next.js y .NET',
-      'Implementación de arquitecturas Clean Architecture y Domain Driven Design',
-      'Integración con servicios AWS (Lambda, S3, CloudFront, Route53)',
-      'Optimización de rendimiento y SEO en aplicaciones de alto tráfico',
-      'Diseño e implementación de APIs REST escalables',
+      {
+        es: 'Desarrollo de aplicaciones web empresariales con Next.js y .NET',
+        en: 'Development of enterprise web applications with Next.js and .NET',
+      },
+      {
+        es: 'Implementación de arquitecturas Clean Architecture y Domain Driven Design',
+        en: 'Implementation of Clean Architecture and Domain Driven Design',
+      },
+      {
+        es: 'Integración con servicios AWS (Lambda, S3, CloudFront, Route53)',
+        en: 'Integration with AWS services (Lambda, S3, CloudFront, Route53)',
+      },
+      {
+        es: 'Optimización de rendimiento y SEO en aplicaciones de alto tráfico',
+        en: 'Performance and SEO optimization for high-traffic applications',
+      },
+      {
+        es: 'Diseño e implementación de APIs REST escalables',
+        en: 'Design and implementation of scalable REST APIs',
+      },
     ],
   },
   /*{

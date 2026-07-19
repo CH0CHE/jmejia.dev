@@ -1,8 +1,11 @@
+'use client'
+
 import Link from 'next/link'
-import { Mail, MessageCircle } from 'lucide-react'
+import { Mail } from 'lucide-react'
 import { Container } from '@/components/shared/container'
 import { GithubIcon, LinkedinIcon, WhatsAppIcon } from '@/components/shared/icons'
 import { navItems, socialLinks } from '@/data/navigation'
+import { useLanguage } from '@/lib/i18n/language-provider'
 import { env } from '@/lib/env'
 
 type IconKey = 'github' | 'linkedin' | 'mail' | 'message-circle'
@@ -15,8 +18,10 @@ const iconMap: Record<IconKey, React.ComponentType<{ className?: string }>> = {
 }
 
 export function Footer() {
+  const { t } = useLanguage()
+
   return (
-    <footer className="border-t border-border bg-surface" aria-label="Pie de página">
+    <footer className="border-t border-border bg-surface" aria-label={t.footer.footerAria}>
       <Container>
         <div className="py-14">
           <div className="grid grid-cols-1 gap-10 sm:grid-cols-3">
@@ -25,7 +30,7 @@ export function Footer() {
             <div>
               <p className="text-xl font-bold gradient-primary">jmejia.dev</p>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                Full Stack Developer
+                {t.hero.role}
                 <br />
                 {env.location}
               </p>
@@ -50,18 +55,18 @@ export function Footer() {
             </div>
 
             {/* Navigation */}
-            <nav aria-label="Navegación del footer">
+            <nav aria-label={t.footer.footerNavAria}>
               <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-                Navegación
+                {t.footer.navigationLabel}
               </p>
               <ul className="space-y-2.5" role="list">
-                {navItems.map(({ href, label }) => (
+                {navItems.map(({ href, key }) => (
                   <li key={href}>
                     <Link
                       href={href}
                       className="text-sm text-muted-foreground transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                     >
-                      {label}
+                      {t.nav[key]}
                     </Link>
                   </li>
                 ))}
@@ -71,7 +76,7 @@ export function Footer() {
             {/* Contact */}
             <div>
               <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-                Contacto
+                {t.footer.contactLabel}
               </p>
               <ul className="space-y-2.5" role="list">
                 {socialLinks.map(({ label, url, icon }) => {
@@ -98,12 +103,12 @@ export function Footer() {
           {/* Bottom bar */}
           <div className="mt-10 flex flex-col items-center gap-3 border-t border-border pt-8 sm:flex-row sm:justify-between">
             <p className="text-xs text-muted-foreground">
-              © 2026 Josue Francisco Mejia Morales. Todos los derechos reservados.
+              {t.footer.copyright}
             </p>
             <p className="text-xs text-muted-foreground">
-              Construido con{' '}
+              {t.footer.builtWith}{' '}
               <span className="text-primary">Next.js</span>,{' '}
-              <span className="text-primary">Tailwind CSS</span> y{' '}
+              <span className="text-primary">Tailwind CSS</span> {t.footer.and}{' '}
               <span className="text-primary">Framer Motion</span>
             </p>
           </div>

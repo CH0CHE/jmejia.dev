@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils'
 import { buttonVariants } from '@/components/ui/button'
 import { Container } from '@/components/shared/container'
 import { GradientText } from '@/components/shared/gradient-text'
+import { useLanguage } from '@/lib/i18n/language-provider'
 import { ParticleCanvas } from './particle-canvas'
 import { TypewriterText } from './typewriter-text'
 
@@ -24,11 +25,13 @@ const fadeUp = (delay = 0) => ({
 })
 
 export function HeroSection() {
+  const { t } = useLanguage()
+
   return (
     <section
       id="hero"
       className="relative flex min-h-screen items-center overflow-hidden"
-      aria-label="Presentación principal"
+      aria-label={t.hero.sectionAria}
     >
       {/* Layered background */}
       <div className="absolute inset-0 bg-gradient-hero" aria-hidden />
@@ -56,7 +59,7 @@ export function HeroSection() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-60" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
               </span>
-              Disponible para proyectos
+              {t.hero.availableBadge}
             </span>
           </motion.div>
 
@@ -76,7 +79,7 @@ export function HeroSection() {
             {...fadeUp(0.2)}
             className="mb-4 text-xl font-semibold text-muted-foreground sm:text-2xl lg:text-3xl"
           >
-            Full Stack Developer
+            {t.hero.role}
           </motion.p>
 
           {/* Typewriter */}
@@ -84,7 +87,7 @@ export function HeroSection() {
             {...fadeUp(0.3)}
             className="mb-12 flex h-8 items-center justify-center gap-2 text-base text-muted-foreground sm:text-lg"
           >
-            <span>Especializado en</span>
+            <span>{t.hero.specializedIn}</span>
             <TypewriterText
               items={SPECIALTIES}
               className="font-semibold text-primary"
@@ -104,7 +107,7 @@ export function HeroSection() {
               )}
             >
               <FolderKanban className="h-4 w-4" aria-hidden />
-              Ver proyectos
+              {t.hero.ctaProjects}
             </a>
             <a
               href="#contact"
@@ -114,7 +117,7 @@ export function HeroSection() {
               )}
             >
               <Mail className="h-4 w-4" aria-hidden />
-              Hablemos
+              {t.hero.ctaContact}
             </a>
           </motion.div>
 
@@ -125,7 +128,7 @@ export function HeroSection() {
             transition={{ duration: 0.8, delay: 0.65 }}
             className="mt-10 text-sm text-muted-foreground/60"
           >
-            📍 Ciudad de Guatemala, Guatemala
+            {t.hero.location}
           </motion.p>
         </div>
       </Container>
@@ -139,10 +142,10 @@ export function HeroSection() {
       >
         <a
           href="#about"
-          aria-label="Ir a la siguiente sección"
+          aria-label={t.hero.nextSectionAria}
           className="flex flex-col items-center gap-2 text-muted-foreground/40 transition-colors hover:text-muted-foreground"
         >
-          <span className="text-[10px] uppercase tracking-widest">scroll</span>
+          <span className="text-[10px] uppercase tracking-widest">{t.hero.scroll}</span>
           <motion.div
             animate={{ y: [0, 6, 0] }}
             transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}

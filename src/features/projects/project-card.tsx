@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils'
 import { buttonVariants } from '@/components/ui/button'
 import { TechBadge } from '@/components/shared/tech-badge'
 import { GithubIcon } from '@/components/shared/icons'
+import { useLanguage } from '@/lib/i18n/language-provider'
 import { ProjectPlaceholder } from './project-placeholder'
 import type { Project } from '@/types'
 
@@ -22,6 +23,7 @@ function ProjectMedia({
   name: string
 }) {
   const [showVideo, setShowVideo] = useState(false)
+  const { t } = useLanguage()
 
   return (
     <div className="relative h-full w-full">
@@ -45,7 +47,7 @@ function ProjectMedia({
             />
             <button
               onClick={() => setShowVideo(false)}
-              aria-label="Cerrar preview"
+              aria-label={t.projects.closePreviewAria}
               className="absolute right-3 top-3 z-10 flex items-center justify-center rounded-full border border-white/20 bg-black/60 p-1.5 text-white backdrop-blur-sm transition-colors hover:bg-black/80"
             >
               <X className="h-3.5 w-3.5" />
@@ -64,11 +66,11 @@ function ProjectMedia({
             {video && (
               <button
                 onClick={() => setShowVideo(true)}
-                aria-label="Ver preview en video"
+                aria-label={t.projects.viewVideoPreviewAria}
                 className="absolute bottom-3 right-3 z-10 flex items-center gap-1.5 rounded-full border border-primary/40 bg-background/80 px-3 py-1.5 text-xs font-semibold text-primary backdrop-blur-sm transition-all duration-200 hover:border-primary/70 hover:bg-primary/10 hover:shadow-lg hover:shadow-primary/20"
               >
                 <Play className="h-3 w-3 fill-current" aria-hidden />
-                Ver preview
+                {t.projects.viewPreview}
               </button>
             )}
           </motion.div>
@@ -81,6 +83,8 @@ function ProjectMedia({
 // ─── Featured card (large, full-width) ────────────────────────────────────────
 
 export function FeaturedProjectCard({ project }: { project: Project }) {
+  const { language, t } = useLanguage()
+
   return (
     <motion.article
       initial={{ opacity: 0, y: 32 }}
@@ -92,7 +96,7 @@ export function FeaturedProjectCard({ project }: { project: Project }) {
       {/* Featured badge */}
       <div className="absolute left-5 top-5 z-10 flex items-center gap-1.5 rounded-full border border-primary/30 bg-background/80 px-3 py-1 text-xs font-semibold text-primary backdrop-blur-sm">
         <Star className="h-3 w-3 fill-current" aria-hidden />
-        Proyecto Destacado
+        {t.projects.featuredBadge}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2">
@@ -120,19 +124,19 @@ export function FeaturedProjectCard({ project }: { project: Project }) {
           </h3>
 
           <p className="mb-2 text-base text-muted-foreground leading-relaxed">
-            {project.description}
+            {project.description[language]}
           </p>
 
           {project.longDescription && (
             <p className="mb-6 text-sm text-muted-foreground/80 leading-relaxed">
-              {project.longDescription}
+              {project.longDescription[language]}
             </p>
           )}
 
           {/* Tech stack */}
           <div className="mb-8 flex flex-wrap gap-1.5">
-            {project.technologies.map((t) => (
-              <TechBadge key={t} name={t} variant="primary" />
+            {project.technologies.map((techName) => (
+              <TechBadge key={techName} name={techName} variant="primary" />
             ))}
           </div>
 
@@ -149,7 +153,7 @@ export function FeaturedProjectCard({ project }: { project: Project }) {
                 )}
               >
                 <ExternalLink className="h-3.5 w-3.5" aria-hidden />
-                Ver sitio en vivo
+                {t.projects.viewLiveSite}
               </a>
             )}
             {project.github && (
@@ -163,7 +167,7 @@ export function FeaturedProjectCard({ project }: { project: Project }) {
                 )}
               >
                 <GithubIcon className="h-3.5 w-3.5" />
-                Ver código
+                {t.projects.viewCode}
               </a>
             )}
           </div>
@@ -182,6 +186,8 @@ export function ProjectCard({
   project: Project
   index?: number
 }) {
+  const { language, t } = useLanguage()
+
   return (
     <motion.article
       initial={{ opacity: 0, y: 28 }}
@@ -209,13 +215,13 @@ export function ProjectCard({
         </div>
 
         <p className="mb-4 flex-1 text-sm leading-relaxed text-muted-foreground">
-          {project.description}
+          {project.description[language]}
         </p>
 
         {/* Tech */}
         <div className="mb-5 flex flex-wrap gap-1.5">
-          {project.technologies.slice(0, 5).map((t) => (
-            <TechBadge key={t} name={t} />
+          {project.technologies.slice(0, 5).map((techName) => (
+            <TechBadge key={techName} name={techName} />
           ))}
           {project.technologies.length > 5 && (
             <span className="rounded-full border border-border px-2.5 py-1 text-xs text-muted-foreground">
@@ -237,7 +243,7 @@ export function ProjectCard({
               )}
             >
               <ExternalLink className="h-3.5 w-3.5" aria-hidden />
-              Sitio
+              {t.projects.site}
             </a>
           )}
           {project.github && (
@@ -251,7 +257,7 @@ export function ProjectCard({
               )}
             >
               <GithubIcon className="h-3.5 w-3.5" />
-              Código
+              {t.projects.code}
             </a>
           )}
         </div>

@@ -1,54 +1,19 @@
 'use client'
 
+import { Fragment } from 'react'
 import { motion } from 'framer-motion'
 import { Cloud, Zap, GitMerge, Layers } from 'lucide-react'
 import { Container } from '@/components/shared/container'
 import { SectionWrapper, SectionHeading } from '@/components/shared/section-wrapper'
-import { GradientText } from '@/components/shared/gradient-text'
+import { useLanguage } from '@/lib/i18n/language-provider'
 
-const stats = [
-  { value: '2+', label: 'Años de experiencia' },
-  { value: '10+', label: 'Proyectos entregados' },
-  { value: '20+', label: 'Tecnologías dominadas' },
-]
+const STATS_META = [{ value: '2+' }, { value: '10+' }, { value: '20+' }]
 
-const strengths = [
-  {
-    icon: Layers,
-    title: 'Arquitectura Limpia',
-    description:
-      'Clean Architecture, Domain Driven Design y patrones SOLID para código mantenible y escalable a largo plazo.',
-    color: 'text-primary',
-    bg: 'bg-primary/10',
-    border: 'border-primary/20',
-  },
-  {
-    icon: Cloud,
-    title: 'Cloud & Serverless',
-    description:
-      'Despliegues en AWS con Lambda, S3 y CloudFront. Infraestructura como código con SST y escalabilidad automática.',
-    color: 'text-secondary',
-    bg: 'bg-secondary/10',
-    border: 'border-secondary/20',
-  },
-  {
-    icon: Zap,
-    title: 'Alto Rendimiento',
-    description:
-      'Optimización de bundles, SSR/SSG estratégico, lazy loading e imágenes optimizadas. Lighthouse 95+ como objetivo.',
-    color: 'text-primary',
-    bg: 'bg-primary/10',
-    border: 'border-primary/20',
-  },
-  {
-    icon: GitMerge,
-    title: 'Integración & Automatización',
-    description:
-      'APIs REST robustas, webhooks, integraciones de IA y automatización de procesos empresariales complejos.',
-    color: 'text-secondary',
-    bg: 'bg-secondary/10',
-    border: 'border-secondary/20',
-  },
+const STRENGTHS_META = [
+  { icon: Layers, color: 'text-primary', bg: 'bg-primary/10', border: 'border-primary/20' },
+  { icon: Cloud, color: 'text-secondary', bg: 'bg-secondary/10', border: 'border-secondary/20' },
+  { icon: Zap, color: 'text-primary', bg: 'bg-primary/10', border: 'border-primary/20' },
+  { icon: GitMerge, color: 'text-secondary', bg: 'bg-secondary/10', border: 'border-secondary/20' },
 ]
 
 const methodologies = [
@@ -70,13 +35,17 @@ const fadeInUp = (delay = 0) => ({
 })
 
 export function AboutSection() {
+  const { t } = useLanguage()
+  const stats = STATS_META.map((meta, i) => ({ ...meta, label: t.about.stats[i].label }))
+  const strengths = STRENGTHS_META.map((meta, i) => ({ ...meta, ...t.about.strengths[i] }))
+
   return (
     <SectionWrapper id="about">
       <Container>
         <SectionHeading
-          eyebrow="Sobre mí"
-          title="El ingeniero detrás del código"
-          description="Construyendo software que importa, con las mejores herramientas del ecosistema moderno."
+          eyebrow={t.about.eyebrow}
+          title={t.about.title}
+          description={t.about.description}
         />
 
         {/* Stats */}
@@ -106,37 +75,27 @@ export function AboutSection() {
           {/* Left: Bio */}
           <motion.div {...fadeInUp(0)}>
             <div className="space-y-5 text-base leading-relaxed text-muted-foreground sm:text-lg">
-              <p>
-                Soy un{' '}
-                <span className="font-semibold text-foreground">
-                  Full Stack Developer
-                </span>{' '}
-                con sede en{' '}
-                <span className="text-primary">Ciudad de Guatemala</span>, apasionado por
-                construir soluciones digitales modernas que combinan diseño elegante con
-                ingeniería sólida.
-              </p>
-              <p>
-                Me especializo en el stack completo: desde interfaces de usuario fluidas
-                con{' '}
-                <span className="font-medium text-foreground">Next.js y React</span>, hasta
-                backends robustos con{' '}
-                <span className="font-medium text-foreground">.NET y Node.js</span>, y
-                despliegues escalables en{' '}
-                <span className="font-medium text-foreground">AWS</span>.
-              </p>
-              <p>
-                Creo firmemente en las arquitecturas limpias, el código legible y en
-                entregar software que no solo funcione hoy, sino que escale mañana. Cada
-                proyecto es una oportunidad de aplicar las mejores prácticas de ingeniería
-                y seguir aprendiendo.
-              </p>
+              {t.about.bioParagraphs.map((segments, i) => (
+                <p key={i}>
+                  {segments.map((seg, j) => (
+                    <Fragment key={j}>
+                      {seg.emphasis === 'strong' ? (
+                        <span className="font-semibold text-foreground">{seg.text}</span>
+                      ) : seg.emphasis === 'primary' ? (
+                        <span className="text-primary">{seg.text}</span>
+                      ) : (
+                        seg.text
+                      )}
+                    </Fragment>
+                  ))}
+                </p>
+              ))}
             </div>
 
             {/* Methodologies */}
             <div className="mt-10">
               <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-                Metodologías & Prácticas
+                {t.about.methodologiesLabel}
               </p>
               <div className="flex flex-wrap gap-2">
                 {methodologies.map((m) => (
