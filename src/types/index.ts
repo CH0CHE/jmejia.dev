@@ -36,6 +36,21 @@ export interface Experience {
   description: string
   technologies: string[]
   highlights: string[]
+  icon?: string
+}
+
+export interface Education {
+  id: string
+  institution: string
+  degree: string
+  startDate: string
+  endDate?: string
+  note?: string
+  description?: string
+  technologies?: string[]
+  highlights?: string[]
+  icon?: string
+  current?: boolean
 }
 
 export interface SocialLink {

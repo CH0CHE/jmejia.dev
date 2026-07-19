@@ -76,7 +76,7 @@ export function HeroSection() {
             {...fadeUp(0.2)}
             className="mb-4 text-xl font-semibold text-muted-foreground sm:text-2xl lg:text-3xl"
           >
-            Full Stack Software Engineer
+            Full Stack Developer
           </motion.p>
 
           {/* Typewriter */}

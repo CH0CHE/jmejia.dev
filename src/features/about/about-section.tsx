@@ -7,7 +7,7 @@ import { SectionWrapper, SectionHeading } from '@/components/shared/section-wrap
 import { GradientText } from '@/components/shared/gradient-text'
 
 const stats = [
-  { value: '3+', label: 'Años de experiencia' },
+  { value: '2+', label: 'Años de experiencia' },
   { value: '10+', label: 'Proyectos entregados' },
   { value: '20+', label: 'Tecnologías dominadas' },
 ]
@@ -109,7 +109,7 @@ export function AboutSection() {
               <p>
                 Soy un{' '}
                 <span className="font-semibold text-foreground">
-                  Full Stack Software Engineer
+                  Full Stack Developer
                 </span>{' '}
                 con sede en{' '}
                 <span className="text-primary">Ciudad de Guatemala</span>, apasionado por

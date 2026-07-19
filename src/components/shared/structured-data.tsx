@@ -6,7 +6,7 @@ const personSchema = {
   name: 'Josue Francisco Mejia Morales',
   givenName: 'Josue',
   familyName: 'Mejia Morales',
-  jobTitle: 'Full Stack Software Engineer',
+  jobTitle: 'Full Stack Developer',
   url: env.siteUrl,
   email: `mailto:${env.email}`,
   image: `${env.siteUrl}/opengraph-image`,
@@ -39,7 +39,7 @@ const websiteSchema = {
   name: 'Josue Mejia — Portfolio',
   url: env.siteUrl,
   description:
-    'Full Stack Software Engineer especializado en Next.js, React, .NET y arquitecturas cloud en AWS.',
+    'Full Stack Developer especializado en Next.js, React, .NET y arquitecturas cloud en AWS.',
   author: {
     '@type': 'Person',
     name: 'Josue Francisco Mejia Morales',

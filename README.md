@@ -1,6 +1,6 @@
 # jmejia.dev
 
-Portfolio personal de **Josue Francisco Mejia Morales** — Full Stack Software Engineer, Ciudad de Guatemala.
+Portfolio personal de **Josue Francisco Mejia Morales** — Full Stack Developer, Ciudad de Guatemala.
 
 ## Stack
 

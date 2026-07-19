@@ -25,7 +25,7 @@ export function Footer() {
             <div>
               <p className="text-xl font-bold gradient-primary">jmejia.dev</p>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                Full Stack Software Engineer
+                Full Stack Developer
                 <br />
                 {env.location}
               </p>

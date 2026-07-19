@@ -4,8 +4,9 @@ export const experiences: Experience[] = [
   {
     id: 'digifact',
     company: 'Digifact',
-    role: 'Full Stack Software Engineer',
-    startDate: 'Ene 2024',
+    role: 'Full Stack Developer',
+    startDate: 'Junio 2024',
+    icon: '/logos/digifact.webp',
     description:
       'Desarrollo de soluciones empresariales modernas para facturación electrónica y gestión de documentos fiscales en Guatemala.',
     technologies: ['Next.js', 'TypeScript', 'C#', '.NET', 'SQL Server', 'AWS', 'React'],
@@ -17,7 +18,7 @@ export const experiences: Experience[] = [
       'Diseño e implementación de APIs REST escalables',
     ],
   },
-  {
+  /*{
     id: 'freelance',
     company: 'Desarrollo Freelance',
     role: 'Full Stack Developer',
@@ -32,21 +33,5 @@ export const experiences: Experience[] = [
       'Integración de APIs de terceros y automatización de procesos',
       'Despliegue y administración de infraestructura en AWS',
     ],
-  },
-  {
-    id: 'inicio',
-    company: 'Formación & Proyectos Personales',
-    role: 'Autodidacta — Full Stack',
-    startDate: '2020',
-    endDate: 'May 2022',
-    description:
-      'Aprendizaje autodidacta intensivo en desarrollo web moderno, construyendo proyectos reales para dominar el stack completo.',
-    technologies: ['HTML', 'CSS', 'JavaScript', 'React', 'Node.js', 'PostgreSQL'],
-    highlights: [
-      'Dominio del stack JavaScript (React, Node.js, Express)',
-      'Proyectos personales de frontend y backend',
-      'Contribuciones a proyectos open source',
-      'Certificaciones y cursos en AWS y desarrollo web',
-    ],
-  },
+  },*/
 ]

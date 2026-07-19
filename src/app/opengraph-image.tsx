@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og'
 import { env } from '@/lib/env'
 
-export const alt = 'Josue Mejia — Full Stack Software Engineer'
+export const alt = 'Josue Mejia — Full Stack Developer'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -109,7 +109,7 @@ export default function Image() {
             letterSpacing: '-0.5px',
           }}
         >
-          Full Stack Software Engineer
+          Full Stack Developer
         </div>
 
         {/* Tech pills */}

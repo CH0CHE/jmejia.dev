@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Briefcase, Calendar, ChevronRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -8,7 +9,7 @@ import { SectionWrapper, SectionHeading } from '@/components/shared/section-wrap
 import { TechBadge } from '@/components/shared/tech-badge'
 import { experiences } from '@/data/experience'
 
-const YEARS_EXP = new Date().getFullYear() - 2022
+const YEARS_EXP = new Date().getFullYear() - 2024
 
 export function ExperienceSection() {
   return (
@@ -17,7 +18,7 @@ export function ExperienceSection() {
         <SectionHeading
           eyebrow="Trayectoria"
           title="Experiencia profesional"
-          description={`${YEARS_EXP}+ años construyendo software real en producción.`}
+          description={`+${YEARS_EXP} años construyendo software real en producción.`}
         />
 
         {/* Timeline */}
@@ -139,13 +140,24 @@ export function ExperienceSection() {
                         )}
                       >
                         <div className="mb-1 flex items-start justify-between gap-3">
-                          <div>
-                            <p className="text-xs font-semibold uppercase tracking-widest text-primary">
-                              {exp.company}
-                            </p>
-                            <h3 className="mt-0.5 text-base font-bold text-foreground sm:text-lg">
-                              {exp.role}
-                            </h3>
+                          <div className="flex items-start gap-3">
+                            {exp.icon && (
+                              <Image
+                                src={exp.icon}
+                                alt={exp.company}
+                                width={40}
+                                height={40}
+                                className="h-10 w-10 shrink-0 rounded-full object-contain"
+                              />
+                            )}
+                            <div>
+                              <p className="text-xs font-semibold uppercase tracking-widest text-primary">
+                                {exp.company}
+                              </p>
+                              <h3 className="mt-0.5 text-base font-bold text-foreground sm:text-lg">
+                                {exp.role}
+                              </h3>
+                            </div>
                           </div>
                         </div>
 

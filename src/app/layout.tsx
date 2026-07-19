@@ -29,11 +29,11 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: 'Josue Mejia — Full Stack Software Engineer',
+    default: 'Josue Mejia — Full Stack Developer',
     template: '%s | Josue Mejia',
   },
   description:
-    'Full Stack Software Engineer especializado en Next.js, React, .NET y arquitecturas cloud en AWS. Construyendo software moderno, escalable y de alto rendimiento desde Ciudad de Guatemala.',
+    'Full Stack Developer especializado en Next.js, React, .NET y arquitecturas cloud en AWS. Construyendo software moderno, escalable y de alto rendimiento desde Ciudad de Guatemala.',
   keywords: [
     'Full Stack Developer',
     'Software Engineer',
@@ -58,16 +58,16 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'es_GT',
     url: env.siteUrl,
-    title: 'Josue Mejia — Full Stack Software Engineer',
+    title: 'Josue Mejia — Full Stack Developer',
     description:
-      'Full Stack Software Engineer especializado en Next.js, React, .NET y arquitecturas cloud en AWS.',
+      'Full Stack Developer especializado en Next.js, React, .NET y arquitecturas cloud en AWS.',
     siteName: 'Josue Mejia',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Josue Mejia — Full Stack Software Engineer',
+    title: 'Josue Mejia — Full Stack Developer',
     description:
-      'Full Stack Software Engineer especializado en Next.js, React, .NET y arquitecturas cloud en AWS.',
+      'Full Stack Developer especializado en Next.js, React, .NET y arquitecturas cloud en AWS.',
   },
   robots: {
     index: true,

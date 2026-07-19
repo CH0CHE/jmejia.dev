@@ -12,10 +12,12 @@ import type { Project } from '@/types'
 
 function ProjectMedia({
   video,
+  image,
   technologies,
   name,
 }: {
   video?: string
+  image?: string
   technologies: string[]
   name: string
 }) {
@@ -58,7 +60,7 @@ function ProjectMedia({
             transition={{ duration: 0.35 }}
             className="absolute inset-0"
           >
-            <ProjectPlaceholder name={name} technologies={technologies} />
+            <ProjectPlaceholder name={name} technologies={technologies} image={image} />
             {video && (
               <button
                 onClick={() => setShowVideo(true)}
@@ -98,6 +100,7 @@ export function FeaturedProjectCard({ project }: { project: Project }) {
         <div className="relative h-64 overflow-hidden lg:h-auto lg:min-h-[400px]">
           <ProjectMedia
             video={project.video}
+            image={project.image}
             technologies={project.technologies}
             name={project.name}
           />

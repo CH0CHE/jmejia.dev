@@ -1,10 +1,12 @@
 'use client'
 
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 
 interface ProjectPlaceholderProps {
   name: string
   technologies: string[]
+  image?: string
 }
 
 // Deterministic "random" positions based on string hash — stable across renders
@@ -16,7 +18,7 @@ function hashCode(str: string): number {
   return Math.abs(hash)
 }
 
-export function ProjectPlaceholder({ name, technologies }: ProjectPlaceholderProps) {
+export function ProjectPlaceholder({ name, technologies, image }: ProjectPlaceholderProps) {
   const initials = name
     .split(/\s+/)
     .map((w) => w[0])
@@ -85,10 +87,14 @@ export function ProjectPlaceholder({ name, technologies }: ProjectPlaceholderPro
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="text-center">
           <div
-            className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl border border-primary/30 bg-primary/15 text-2xl font-bold text-primary"
+            className="mx-auto flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl border border-primary/30 bg-primary/15 text-2xl font-bold text-primary"
             aria-hidden
           >
-            {initials}
+            {image ? (
+              <Image src={image} alt="" width={64} height={64} className="h-full w-full object-cover" />
+            ) : (
+              initials
+            )}
           </div>
           <p className="mt-3 text-sm font-semibold text-foreground/70">{name}</p>
         </div>
