@@ -22,6 +22,7 @@ import { GithubIcon, LinkedinIcon, WhatsAppIcon } from '@/components/shared/icon
 import { useLanguage } from '@/lib/i18n/language-provider'
 import type { Dictionary } from '@/lib/i18n/dictionaries'
 import { env } from '@/lib/env'
+import { TurnstileWidget } from './turnstile-widget'
 
 // ─── Contact info ──────────────────────────────────────────────────────────────
 
@@ -127,10 +128,13 @@ function Field({
 // ─── Contact form ──────────────────────────────────────────────────────────────
 
 function ContactForm() {
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
   const [status, setStatus] = useState<FormStatus>('idle')
   const [data, setData] = useState<FormData>(EMPTY)
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({})
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
+  const [turnstileKey, setTurnstileKey] = useState(0)
+  const [captchaError, setCaptchaError] = useState<string | undefined>(undefined)
 
   const set =
     (field: keyof FormData) =>
@@ -139,6 +143,11 @@ function ContactForm() {
       if (errors[field]) setErrors((prev) => ({ ...prev, [field]: undefined }))
     }
 
+  const resetCaptcha = () => {
+    setTurnstileToken(null)
+    setTurnstileKey((k) => k + 1)
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     const errs = validate(data, t.contact.errors)
@@ -146,21 +155,30 @@ function ContactForm() {
       setErrors(errs)
       return
     }
+    if (!turnstileToken) {
+      setCaptchaError(t.contact.errors.captchaRequired)
+      return
+    }
+    setCaptchaError(undefined)
 
     setStatus('loading')
 
-    // TODO: connect to your email service here
-    // Options: Resend (resend.com), EmailJS, Formspree, or a Next.js API route
-    // Example:
-    //   const res = await fetch('/api/contact', {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify(data),
-    //   })
-    //   if (!res.ok) { setStatus('error'); return }
-
-    await new Promise((r) => setTimeout(r, 1400))
-    setStatus('success')
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...data, turnstileToken }),
+      })
+      resetCaptcha()
+      if (!res.ok) {
+        setStatus('error')
+        return
+      }
+      setStatus('success')
+    } catch {
+      resetCaptcha()
+      setStatus('error')
+    }
   }
 
   if (status === 'success') {
@@ -250,6 +268,50 @@ function ContactForm() {
           className="resize-none bg-surface-elevated/50 leading-relaxed"
         />
       </Field>
+
+      {env.turnstileSiteKey && (
+        <div className="flex flex-col gap-1.5">
+          <div className="flex justify-center">
+            <TurnstileWidget
+              key={`${language}-${turnstileKey}`}
+              siteKey={env.turnstileSiteKey}
+              language={language}
+              onVerify={(token) => {
+                setTurnstileToken(token)
+                setCaptchaError(undefined)
+              }}
+              onExpire={() => setTurnstileToken(null)}
+            />
+          </div>
+          <AnimatePresence>
+            {captchaError && (
+              <motion.p
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                className="text-xs text-destructive"
+                role="alert"
+              >
+                {captchaError}
+              </motion.p>
+            )}
+          </AnimatePresence>
+        </div>
+      )}
+
+      <AnimatePresence>
+        {status === 'error' && (
+          <motion.p
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="text-sm text-destructive"
+            role="alert"
+          >
+            {t.contact.submitError}
+          </motion.p>
+        )}
+      </AnimatePresence>
 
       <button
         type="submit"

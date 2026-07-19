@@ -5,4 +5,5 @@ export const env = {
   github: process.env.NEXT_PUBLIC_GITHUB ?? '',
   linkedin: process.env.NEXT_PUBLIC_LINKEDIN ?? '',
   location: process.env.NEXT_PUBLIC_LOCATION ?? 'Ciudad de Guatemala, Guatemala',
+  turnstileSiteKey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? '',
 } as const

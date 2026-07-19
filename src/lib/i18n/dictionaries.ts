@@ -101,12 +101,14 @@ interface Dictionary {
     sending: string
     send: string
     requiredNote: string
+    submitError: string
     errors: {
       nameRequired: string
       emailRequired: string
       emailInvalid: string
       messageRequired: string
       messageTooShort: string
+      captchaRequired: string
     }
     success: {
       title: string
@@ -294,12 +296,14 @@ const es: Dictionary = {
     sending: 'Enviando…',
     send: 'Enviar mensaje',
     requiredNote: '* Campos requeridos. Tu información no será compartida con terceros.',
+    submitError: 'No se pudo enviar el mensaje. Intenta de nuevo o escríbeme directamente.',
     errors: {
       nameRequired: 'El nombre es requerido.',
       emailRequired: 'El email es requerido.',
       emailInvalid: 'Ingresa un email válido.',
       messageRequired: 'El mensaje es requerido.',
       messageTooShort: 'El mensaje debe tener al menos 10 caracteres.',
+      captchaRequired: 'Confirma que no eres un robot.',
     },
     success: {
       title: '¡Mensaje enviado!',
@@ -485,12 +489,14 @@ const en: Dictionary = {
     sending: 'Sending…',
     send: 'Send message',
     requiredNote: '* Required fields. Your information will not be shared with third parties.',
+    submitError: "Couldn't send the message. Please try again or email me directly.",
     errors: {
       nameRequired: 'Name is required.',
       emailRequired: 'Email is required.',
       emailInvalid: 'Enter a valid email.',
       messageRequired: 'Message is required.',
       messageTooShort: 'Message must be at least 10 characters.',
+      captchaRequired: 'Please confirm you are not a robot.',
     },
     success: {
       title: 'Message sent!',
