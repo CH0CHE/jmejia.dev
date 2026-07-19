@@ -11,7 +11,7 @@ export const projects: Project[] = [
     technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'React', 'shadcn/ui', 'Vercel'],
     url: 'https://iuris360gt.com/',
     github: 'https://github.com/CH0CHE/iuris360',
-    image: '/projects/iuris360.png',
+    video: '/projects/iuris360.webm',
     year: 2025,
     featured: true,
   },

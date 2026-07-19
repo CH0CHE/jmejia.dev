@@ -1,9 +1,8 @@
 'use client'
 
-import Image from 'next/image'
 import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { ExternalLink, Star } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { ExternalLink, Star, Play, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { buttonVariants } from '@/components/ui/button'
 import { TechBadge } from '@/components/shared/tech-badge'
@@ -11,32 +10,69 @@ import { GithubIcon } from '@/components/shared/icons'
 import { ProjectPlaceholder } from './project-placeholder'
 import type { Project } from '@/types'
 
-function ProjectImage({
-  src,
-  alt,
+function ProjectMedia({
+  video,
   technologies,
   name,
 }: {
-  src?: string
-  alt: string
+  video?: string
   technologies: string[]
   name: string
 }) {
-  const [imgError, setImgError] = useState(false)
-
-  if (!src || imgError) {
-    return <ProjectPlaceholder name={name} technologies={technologies} />
-  }
+  const [showVideo, setShowVideo] = useState(false)
 
   return (
-    <Image
-      src={src}
-      alt={alt}
-      fill
-      className="object-cover transition-transform duration-500 group-hover:scale-105"
-      onError={() => setImgError(true)}
-      sizes="(max-width: 768px) 100vw, 50vw"
-    />
+    <div className="relative h-full w-full">
+      <AnimatePresence mode="wait">
+        {showVideo && video ? (
+          <motion.div
+            key="video"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.35 }}
+            className="absolute inset-0"
+          >
+            <video
+              src={video}
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="h-full w-full object-cover"
+            />
+            <button
+              onClick={() => setShowVideo(false)}
+              aria-label="Cerrar preview"
+              className="absolute right-3 top-3 z-10 flex items-center justify-center rounded-full border border-white/20 bg-black/60 p-1.5 text-white backdrop-blur-sm transition-colors hover:bg-black/80"
+            >
+              <X className="h-3.5 w-3.5" />
+            </button>
+          </motion.div>
+        ) : (
+          <motion.div
+            key="placeholder"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.35 }}
+            className="absolute inset-0"
+          >
+            <ProjectPlaceholder name={name} technologies={technologies} />
+            {video && (
+              <button
+                onClick={() => setShowVideo(true)}
+                aria-label="Ver preview en video"
+                className="absolute bottom-3 right-3 z-10 flex items-center gap-1.5 rounded-full border border-primary/40 bg-background/80 px-3 py-1.5 text-xs font-semibold text-primary backdrop-blur-sm transition-all duration-200 hover:border-primary/70 hover:bg-primary/10 hover:shadow-lg hover:shadow-primary/20"
+              >
+                <Play className="h-3 w-3 fill-current" aria-hidden />
+                Ver preview
+              </button>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   )
 }
 
@@ -60,9 +96,8 @@ export function FeaturedProjectCard({ project }: { project: Project }) {
       <div className="grid grid-cols-1 lg:grid-cols-2">
         {/* Left: visual */}
         <div className="relative h-64 overflow-hidden lg:h-auto lg:min-h-[400px]">
-          <ProjectImage
-            src={project.image}
-            alt={`Captura de ${project.name}`}
+          <ProjectMedia
+            video={project.video}
             technologies={project.technologies}
             name={project.name}
           />
@@ -152,11 +187,10 @@ export function ProjectCard({
       transition={{ duration: 0.5, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
       className="group flex flex-col overflow-hidden rounded-xl border border-border bg-surface transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5"
     >
-      {/* Image */}
+      {/* Media */}
       <div className="relative h-48 overflow-hidden bg-surface-elevated">
-        <ProjectImage
-          src={project.image}
-          alt={`Captura de ${project.name}`}
+        <ProjectMedia
+          video={project.video}
           technologies={project.technologies}
           name={project.name}
         />

@@ -7,6 +7,7 @@ export interface Project {
   url?: string
   github?: string
   image?: string
+  video?: string
   year: number
   featured?: boolean
 }
