@@ -5,9 +5,9 @@ export const navItems: NavItem[] = [
   { key: 'home', href: '#hero' },
   { key: 'about', href: '#about' },
   { key: 'technologies', href: '#technologies' },
-  { key: 'projects', href: '#projects' },
   { key: 'experience', href: '#experience' },
   { key: 'education', href: '#education' },
+  { key: 'projects', href: '#projects' },
   { key: 'contact', href: '#contact' },
 ]
 
