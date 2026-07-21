@@ -14,6 +14,8 @@ export interface Project {
   url?: string
   github?: string
   image?: string
+  /** Background for the small logo tile in the placeholder; defaults to the primary-tinted box. */
+  logoBackground?: 'light'
   video?: string
   year: number
   featured?: boolean

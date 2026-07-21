@@ -9,10 +9,7 @@ import { SectionWrapper, SectionHeading } from '@/components/shared/section-wrap
 import { GithubIcon } from '@/components/shared/icons'
 import { projects } from '@/data/projects'
 import { useLanguage } from '@/lib/i18n/language-provider'
-import { FeaturedProjectCard, ProjectCard } from './project-card'
-
-const featured = projects.filter((p) => p.featured)
-const rest = projects.filter((p) => !p.featured)
+import { ProjectCarousel } from './project-carousel'
 
 export function ProjectsSection() {
   const { t } = useLanguage()
@@ -26,35 +23,9 @@ export function ProjectsSection() {
           description={t.projects.description}
         />
 
-        {/* Featured projects */}
-        {featured.length > 0 && (
-          <div className="mb-12 space-y-8">
-            {featured.map((project) => (
-              <FeaturedProjectCard key={project.id} project={project} />
-            ))}
-          </div>
-        )}
-
-        {/* Rest of projects grid */}
-        {rest.length > 0 && (
-          <>
-            {featured.length > 0 && (
-              <motion.h3
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                className="mb-6 text-lg font-semibold text-muted-foreground"
-              >
-                {t.projects.otherProjects}
-              </motion.h3>
-            )}
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {rest.map((project, i) => (
-                <ProjectCard key={project.id} project={project} index={i} />
-              ))}
-            </div>
-          </>
-        )}
+        <div className="mb-16">
+          <ProjectCarousel projects={projects} />
+        </div>
 
         {/* "More on GitHub" CTA */}
         <motion.div

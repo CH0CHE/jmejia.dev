@@ -79,6 +79,13 @@ interface Dictionary {
     viewPreview: string
     viewVideoPreviewAria: string
     closePreviewAria: string
+    carouselAria: string
+    previousProjectAria: string
+    nextProjectAria: string
+    goToProjectAria: string
+    pauseCarouselAria: string
+    playCarouselAria: string
+    slideStatus: string
   }
   contact: {
     eyebrow: string
@@ -272,6 +279,13 @@ const es: Dictionary = {
     viewPreview: 'Ver preview',
     viewVideoPreviewAria: 'Ver preview en video',
     closePreviewAria: 'Cerrar preview',
+    carouselAria: 'Carrusel de proyectos',
+    previousProjectAria: 'Proyecto anterior',
+    nextProjectAria: 'Siguiente proyecto',
+    goToProjectAria: 'Ir al proyecto',
+    pauseCarouselAria: 'Pausar carrusel',
+    playCarouselAria: 'Reanudar carrusel',
+    slideStatus: 'Proyecto {current} de {total}: {name}',
   },
   contact: {
     eyebrow: 'Contacto',
@@ -466,6 +480,13 @@ const en: Dictionary = {
     viewPreview: 'View preview',
     viewVideoPreviewAria: 'View video preview',
     closePreviewAria: 'Close preview',
+    carouselAria: 'Projects carousel',
+    previousProjectAria: 'Previous project',
+    nextProjectAria: 'Next project',
+    goToProjectAria: 'Go to project',
+    pauseCarouselAria: 'Pause carousel',
+    playCarouselAria: 'Resume carousel',
+    slideStatus: 'Project {current} of {total}: {name}',
   },
   contact: {
     eyebrow: 'Contact',
