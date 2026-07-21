@@ -66,7 +66,7 @@ export const projects: Project[] = [
     ],
     url: 'https://gt.digifact.com/', // dominio de Guatemala (país de origen); el rebranding aún no está en producción
     video: '/projects/portal-facturacion-gt.webm', // pendiente: grabar y subir demo
-    image: '/logos/digifactRebranding.webp',
+    image: '/logos/digifact.webp',
     logoBackground: 'light',
     year: 2026,
     featured: true,
