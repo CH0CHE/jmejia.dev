@@ -78,8 +78,6 @@ interface Dictionary {
     viewCertificate: string
     viewCertificateAria: string
     carouselAria: string
-    previousAria: string
-    nextAria: string
   }
   projects: {
     eyebrow: string
@@ -297,8 +295,6 @@ const es: Dictionary = {
     viewCertificate: 'Ver certificado',
     viewCertificateAria: 'Ver certificado de {name} (se abre en una pestaña nueva)',
     carouselAria: 'Carrusel de certificaciones',
-    previousAria: 'Ver certificaciones anteriores',
-    nextAria: 'Ver más certificaciones',
   },
   projects: {
     eyebrow: 'Portafolio',
@@ -517,8 +513,6 @@ const en: Dictionary = {
     viewCertificate: 'View certificate',
     viewCertificateAria: 'View certificate for {name} (opens in a new tab)',
     carouselAria: 'Certifications carousel',
-    previousAria: 'View previous certifications',
-    nextAria: 'View more certifications',
   },
   projects: {
     eyebrow: 'Portfolio',

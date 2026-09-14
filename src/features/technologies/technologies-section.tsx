@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import { Container } from '@/components/shared/container'
 import { SectionWrapper, SectionHeading } from '@/components/shared/section-wrapper'
@@ -120,12 +120,24 @@ function TechCard({
 // Spacing lives on each card (margin) rather than a flex `gap` on the track,
 // so the duplicated list's halfway point lands exactly on the seam between
 // the two copies — a perfectly seamless loop instead of a half-gap jump.
+//
+// The animation is applied as a single arbitrary `[animation:...]` value
+// (never combined with the `.animate-marquee` utility, which sets the same
+// shorthand) — mixing the two left the outcome to CSS source order, which is
+// why past duration tweaks had no visible effect. Whether it runs at all is
+// decided in JS via `useReducedMotion`, not a competing CSS rule.
 function MarqueeRow({ items }: { items: (typeof technologies)[0][] }) {
+  const prefersReducedMotion = useReducedMotion()
   if (items.length === 0) return null
 
   return (
     <div className="relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)] [-webkit-mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
-      <div className="flex w-max animate-marquee [animation-duration:80s] hover:[animation-play-state:paused] motion-reduce:animate-none">
+      <div
+        className={cn(
+          'flex w-max hover:[animation-play-state:paused]',
+          !prefersReducedMotion && '[animation:marquee_130s_linear_infinite]'
+        )}
+      >
         {[...items, ...items].map((tech, i) => (
           <TechCard key={`${tech.name}-${i}`} tech={tech} className="mr-4" />
         ))}

@@ -1,7 +1,6 @@
 'use client'
 
 import Image from 'next/image'
-import { motion } from 'framer-motion'
 import { Award, ExternalLink } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { TechBadge } from '@/components/shared/tech-badge'
@@ -17,10 +16,12 @@ const INSTITUTION_LOGOS: Record<string, { src: string; whiteBg?: boolean }> = {
 
 interface CertificationCardProps {
   certification: Certification
-  index: number
+  className?: string
+  /** Marks a visually-duplicated copy (used to loop the marquee seamlessly) as hidden from assistive tech and keyboard tabbing. */
+  duplicate?: boolean
 }
 
-export function CertificationCard({ certification, index }: CertificationCardProps) {
+export function CertificationCard({ certification, className, duplicate }: CertificationCardProps) {
   const { language, t } = useLanguage()
   const name = certification.name[language]
   const visibleKeywords = certification.keywords.slice(0, VISIBLE_KEYWORDS)
@@ -28,12 +29,12 @@ export function CertificationCard({ certification, index }: CertificationCardPro
   const logo = INSTITUTION_LOGOS[certification.institution]
 
   return (
-    <motion.article
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-40px' }}
-      transition={{ duration: 0.4, delay: (index % 6) * 0.06, ease: [0.16, 1, 0.3, 1] }}
-      className="group flex h-80 w-[280px] shrink-0 snap-start flex-col rounded-xl border border-border bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 sm:w-[320px]"
+    <article
+      aria-hidden={duplicate || undefined}
+      className={cn(
+        'group flex h-80 w-[280px] shrink-0 flex-col rounded-xl border border-border bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 sm:w-[320px]',
+        className
+      )}
     >
       <div className="flex items-start gap-3">
         <div
@@ -80,12 +81,13 @@ export function CertificationCard({ certification, index }: CertificationCardPro
         href={certification.url}
         target="_blank"
         rel="noopener noreferrer"
+        tabIndex={duplicate ? -1 : undefined}
         aria-label={t.certifications.viewCertificateAria.replace('{name}', name)}
         className="mt-5 inline-flex cursor-pointer items-center gap-1.5 self-start text-sm font-medium text-primary transition-colors hover:text-primary/80"
       >
         {t.certifications.viewCertificate}
         <ExternalLink className="h-3.5 w-3.5" aria-hidden />
       </a>
-    </motion.article>
+    </article>
   )
 }
