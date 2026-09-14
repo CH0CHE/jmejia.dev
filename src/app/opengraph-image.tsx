@@ -8,7 +8,6 @@ export const contentType = 'image/png'
 const CYAN = '#22d3ee'
 const VIOLET = '#a78bfa'
 const BG = '#09101f'
-const SURFACE = '#111827'
 const TEXT = '#f1f5f9'
 const MUTED = '#64748b'
 

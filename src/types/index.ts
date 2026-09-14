@@ -39,7 +39,7 @@ export type TechCategory =
 export interface Experience {
   id: string
   company: string
-  role: string
+  role: Localized
   startDate: string
   endDate?: string
   description: Localized

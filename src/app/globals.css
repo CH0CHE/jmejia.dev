@@ -341,6 +341,18 @@
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+
+  /* Marks an element whose entrance animation is set via inline `style`
+     (see hero-section.tsx) so it can still be neutralized for users who
+     prefer reduced motion — a stylesheet rule with !important is the one
+     thing that can override an inline style. */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-fade-in {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
 }
 
 /* =====================================================

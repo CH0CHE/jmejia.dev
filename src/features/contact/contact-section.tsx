@@ -434,7 +434,7 @@ export function ContactSection() {
                     {t.contact.location}
                   </p>
                   <p className="text-sm font-medium text-foreground">
-                    {env.location}
+                    {t.common.location}
                   </p>
                 </div>
               </div>

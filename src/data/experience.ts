@@ -4,7 +4,7 @@ export const experiences: Experience[] = [
   {
     id: 'digifact',
     company: 'Digifact',
-    role: 'Full Stack Developer',
+    role: { es: 'Full Stack Developer', en: 'Full Stack Developer' },
     startDate: 'Junio 2024',
     icon: '/logos/digifact.webp',
     description: {
@@ -38,7 +38,10 @@ export const experiences: Experience[] = [
   {
     id: 'smart-office-solutions',
     company: 'Smart Office Solutions',
-    role: 'Especialista en Ventas de Soluciones Digitales',
+    role: {
+      es: 'Especialista en Ventas de Soluciones Digitales',
+      en: 'Digital Solutions Sales Specialist',
+    },
     startDate: 'Octubre 2023',
     endDate: 'Mayo 2024',
     icon: '/logos/SOS.webp',
@@ -72,7 +75,10 @@ export const experiences: Experience[] = [
   {
     id: 'conduent',
     company: 'Conduent',
-    role: 'Agente de Atención Telefónica (Billing/Customer Service, cuenta UPS)',
+    role: {
+      es: 'Agente de Atención Telefónica (Billing/Customer Service, cuenta UPS)',
+      en: 'Phone Support Agent (Billing/Customer Service, UPS account)',
+    },
     startDate: 'Febrero 2023',
     endDate: 'Mayo 2023',
     icon: '/logos/Conduent.webp',

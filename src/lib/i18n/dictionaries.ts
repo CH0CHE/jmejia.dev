@@ -25,6 +25,7 @@ interface Dictionary {
     present: string
     current: string
     inProgress: string
+    location: string
   }
   hero: {
     sectionAria: string
@@ -177,6 +178,7 @@ const es: Dictionary = {
     present: 'Presente',
     current: 'Actual',
     inProgress: 'En curso',
+    location: 'Zona 10, Ciudad de Guatemala, Guatemala',
   },
   hero: {
     sectionAria: 'Presentación principal',
@@ -396,6 +398,7 @@ const en: Dictionary = {
     present: 'Present',
     current: 'Current',
     inProgress: 'In progress',
+    location: 'Zone 10, Guatemala City, Guatemala',
   },
   hero: {
     sectionAria: 'Main introduction',

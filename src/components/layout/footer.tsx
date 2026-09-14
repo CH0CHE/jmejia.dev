@@ -6,7 +6,6 @@ import { Container } from '@/components/shared/container'
 import { GithubIcon, LinkedinIcon, WhatsAppIcon } from '@/components/shared/icons'
 import { navItems, socialLinks } from '@/data/navigation'
 import { useLanguage } from '@/lib/i18n/language-provider'
-import { env } from '@/lib/env'
 
 type IconKey = 'github' | 'linkedin' | 'mail' | 'message-circle'
 
@@ -32,7 +31,7 @@ export function Footer() {
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                 {t.hero.role}
                 <br />
-                {env.location}
+                {t.common.location}
               </p>
               <div className="mt-5 flex gap-3">
                 {socialLinks.map(({ label, url, icon }) => {

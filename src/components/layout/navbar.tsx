@@ -11,7 +11,7 @@ import { useScrollPosition, useActiveSection } from '@/hooks/use-scroll'
 import { useLanguage } from '@/lib/i18n/language-provider'
 import { navItems } from '@/data/navigation'
 
-const SECTION_IDS = navItems.map((i) => i.href.replace('#', ''))
+const SECTION_IDS = navItems.map((i) => i.href.split('#')[1])
 
 const CV_PATHS = {
   es: '/cv/CV_Josue_Mejia_ES.pdf',
@@ -41,7 +41,7 @@ export function Navbar() {
       >
         {/* Logo */}
         <Link
-          href="#hero"
+          href="/#hero"
           className="text-xl font-bold tracking-tight gradient-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           aria-label={t.nav.logoAria}
         >
@@ -51,7 +51,7 @@ export function Navbar() {
         {/* Desktop nav */}
         <ul className="hidden items-center gap-0.5 lg:flex" role="list">
           {navItems.map(({ href, key }) => {
-            const id = href.replace('#', '')
+            const id = href.split('#')[1]
             const isActive = active === id
             return (
               <li key={href}>
@@ -135,7 +135,7 @@ export function Navbar() {
           >
             <ul className="flex flex-col px-4 pb-4 pt-2" role="list">
               {navItems.map(({ href, key }) => {
-                const id = href.replace('#', '')
+                const id = href.split('#')[1]
                 const isActive = active === id
                 return (
                   <li key={href}>

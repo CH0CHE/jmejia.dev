@@ -7,7 +7,7 @@ import { Container } from '@/components/shared/container'
 import { SectionWrapper, SectionHeading } from '@/components/shared/section-wrapper'
 import { certifications } from '@/data/certifications'
 import { useLanguage } from '@/lib/i18n/language-provider'
-import { CertificationCarousel } from './certification-carousel'
+import { CertificationCarousel, StaticCertificationRow } from './certification-carousel'
 
 const INSTITUTIONS = Array.from(new Set(certifications.map((c) => c.institution)))
 
@@ -31,6 +31,8 @@ export function CertificationsSection() {
       )
     })
   }, [institution, query, language])
+
+  const isFiltered = institution !== 'all' || query.trim().length > 0
 
   return (
     <SectionWrapper id="certifications">
@@ -101,7 +103,11 @@ export function CertificationsSection() {
           </p>
         </div>
 
-        <CertificationCarousel certifications={filtered} />
+        {isFiltered ? (
+          <StaticCertificationRow certifications={filtered} />
+        ) : (
+          <CertificationCarousel certifications={filtered} />
+        )}
       </Container>
     </SectionWrapper>
   )

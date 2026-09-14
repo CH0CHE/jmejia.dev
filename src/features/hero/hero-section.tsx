@@ -18,10 +18,14 @@ const SPECIALTIES = [
   'Serverless & Microservices',
 ]
 
-const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 28 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.65, delay, ease: [0.16, 1, 0.3, 1] as const },
+// Plain CSS animations (not framer-motion) for the above-the-fold entrance:
+// they run from the server-rendered `style` attribute the moment the browser
+// paints, with no dependency on JS downloading/hydrating first. The hero
+// heading is this page's LCP element, and gating its opacity behind a
+// framer-motion `animate` prop — which only fires after React hydrates —
+// was pushing both FCP and LCP out by however long hydration took.
+const fadeUpStyle = (delaySeconds = 0): React.CSSProperties => ({
+  animation: `fade-in-up 0.65s cubic-bezier(0.16, 1, 0.3, 1) ${delaySeconds}s both`,
 })
 
 export function HeroSection() {
@@ -53,7 +57,7 @@ export function HeroSection() {
         <div className="mx-auto max-w-4xl text-center">
 
           {/* Available indicator */}
-          <motion.div {...fadeUp(0)}>
+          <div className="hero-fade-in" style={fadeUpStyle(0)}>
             <span className="mb-8 inline-flex items-center gap-2.5 rounded-full border border-primary/25 bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary">
               <span className="relative flex h-2 w-2" aria-hidden>
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-60" />
@@ -61,43 +65,43 @@ export function HeroSection() {
               </span>
               {t.hero.availableBadge}
             </span>
-          </motion.div>
+          </div>
 
           {/* Name */}
-          <motion.h1
-            {...fadeUp(0.1)}
-            className="mb-5 mt-6 text-5xl font-bold leading-none tracking-tight sm:text-6xl lg:text-7xl xl:text-8xl"
+          <h1
+            style={fadeUpStyle(0.1)}
+            className="hero-fade-in mb-5 mt-6 text-5xl font-bold leading-none tracking-tight sm:text-6xl lg:text-7xl xl:text-8xl"
           >
             <span className="text-foreground">Josue </span>
             <GradientText variant="primary" className="text-glow-primary">
               Mejia
             </GradientText>
-          </motion.h1>
+          </h1>
 
           {/* Role */}
-          <motion.p
-            {...fadeUp(0.2)}
-            className="mb-4 text-xl font-semibold text-muted-foreground sm:text-2xl lg:text-3xl"
+          <p
+            style={fadeUpStyle(0.2)}
+            className="hero-fade-in mb-4 text-xl font-semibold text-muted-foreground sm:text-2xl lg:text-3xl"
           >
             {t.hero.role}
-          </motion.p>
+          </p>
 
           {/* Typewriter */}
-          <motion.div
-            {...fadeUp(0.3)}
-            className="mb-12 flex h-8 items-center justify-center gap-2 text-base text-muted-foreground sm:text-lg"
+          <div
+            style={fadeUpStyle(0.3)}
+            className="hero-fade-in mb-12 flex h-8 items-center justify-center gap-2 text-base text-muted-foreground sm:text-lg"
           >
             <span>{t.hero.specializedIn}</span>
             <TypewriterText
               items={SPECIALTIES}
               className="font-semibold text-primary"
             />
-          </motion.div>
+          </div>
 
           {/* CTAs */}
-          <motion.div
-            {...fadeUp(0.4)}
-            className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center"
+          <div
+            style={fadeUpStyle(0.4)}
+            className="hero-fade-in flex flex-col items-center gap-3 sm:flex-row sm:justify-center"
           >
             <a
               href="#projects"
@@ -119,17 +123,15 @@ export function HeroSection() {
               <Mail className="h-4 w-4" aria-hidden />
               {t.hero.ctaContact}
             </a>
-          </motion.div>
+          </div>
 
           {/* Location */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.65 }}
-            className="mt-10 text-sm text-muted-foreground/60"
+          <p
+            style={{ animation: 'fade-in 0.8s ease 0.65s both' }}
+            className="hero-fade-in mt-10 text-sm text-muted-foreground/60"
           >
             {t.hero.location}
-          </motion.p>
+          </p>
         </div>
       </Container>
 

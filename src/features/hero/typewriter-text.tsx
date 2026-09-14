@@ -29,8 +29,10 @@ export function TypewriterText({
     if (!deleting && text === target) {
       timer = setTimeout(() => setDeleting(true), pauseTime)
     } else if (deleting && text === '') {
-      setDeleting(false)
-      setIdx((i) => (i + 1) % items.length)
+      timer = setTimeout(() => {
+        setDeleting(false)
+        setIdx((i) => (i + 1) % items.length)
+      }, 0)
     } else {
       timer = setTimeout(
         () =>

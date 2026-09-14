@@ -55,3 +55,26 @@ export function CertificationCarousel({ certifications }: CertificationCarouselP
     </div>
   )
 }
+
+// Filtered view: a static, fully-visible wrapped row (no scroll/animation) —
+// same rationale as the technologies section: once someone has narrowed the
+// list down, chasing a moving row to read it is more confusing than helpful.
+export function StaticCertificationRow({ certifications }: CertificationCarouselProps) {
+  const { t } = useLanguage()
+
+  if (certifications.length === 0) {
+    return (
+      <p className="rounded-xl border border-dashed border-border bg-surface/50 px-6 py-10 text-center text-sm text-muted-foreground">
+        {t.certifications.noResults}
+      </p>
+    )
+  }
+
+  return (
+    <div className="flex flex-wrap justify-center gap-4">
+      {certifications.map((certification) => (
+        <CertificationCard key={certification.id} certification={certification} />
+      ))}
+    </div>
+  )
+}

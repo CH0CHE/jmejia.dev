@@ -163,7 +163,7 @@ export function ExperienceSection() {
                                 {exp.company}
                               </p>
                               <h3 className="mt-0.5 text-base font-bold text-foreground sm:text-lg">
-                                {exp.role}
+                                {exp.role[language]}
                               </h3>
                             </div>
                           </div>
