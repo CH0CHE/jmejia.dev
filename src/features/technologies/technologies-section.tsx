@@ -35,6 +35,9 @@ const TECH_META: Record<string, { abbr: string; color: string; bg: string }> = {
   'Linux':        { abbr: 'LX',  color: '#FCC624', bg: 'rgba(252,198,36,0.12)'  },
   'Git':          { abbr: 'GIT', color: '#F05032', bg: 'rgba(240,80,50,0.15)'   },
   'GitHub':       { abbr: 'GH',  color: '#e2e8f0', bg: 'rgba(226,232,240,0.12)' },
+  'Vercel':       { abbr: '▲',   color: '#e2e8f0', bg: 'rgba(226,232,240,0.12)' },
+  'Claude':       { abbr: '✦',   color: '#D97757', bg: 'rgba(217,119,87,0.14)'  },
+  'Playwright':   { abbr: 'PW',  color: '#2EAD33', bg: 'rgba(46,173,51,0.12)'   },
 }
 
 const LEVEL_COUNT: Record<string, number> = {
@@ -76,21 +79,20 @@ function LevelDots({ level }: { level: string }) {
 
 function TechCard({
   tech,
-  index,
+  className,
 }: {
   tech: (typeof technologies)[0]
-  index: number
+  className?: string
 }) {
   const { t } = useLanguage()
   const meta = TECH_META[tech.name] ?? { abbr: tech.name.slice(0, 2).toUpperCase(), color: '#22d3ee', bg: 'rgba(34,211,238,0.12)' }
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true, margin: '-40px' }}
-      transition={{ duration: 0.35, delay: (index % 12) * 0.04, ease: [0.16, 1, 0.3, 1] }}
-      className="group flex flex-col items-center gap-3 rounded-xl border border-border bg-surface p-5 text-center transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5"
+    <div
+      className={cn(
+        'group flex w-52 shrink-0 flex-col items-center gap-3 rounded-xl border border-border bg-surface p-5 text-center transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5',
+        className
+      )}
     >
       {/* Icon badge */}
       <div
@@ -111,7 +113,36 @@ function TechCard({
 
       {/* Level */}
       <LevelDots level={tech.level} />
-    </motion.div>
+    </div>
+  )
+}
+
+// Spacing lives on each card (margin) rather than a flex `gap` on the track,
+// so the duplicated list's halfway point lands exactly on the seam between
+// the two copies — a perfectly seamless loop instead of a half-gap jump.
+function MarqueeRow({ items }: { items: (typeof technologies)[0][] }) {
+  if (items.length === 0) return null
+
+  return (
+    <div className="relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)] [-webkit-mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
+      <div className="flex w-max animate-marquee [animation-duration:80s] hover:[animation-play-state:paused] motion-reduce:animate-none">
+        {[...items, ...items].map((tech, i) => (
+          <TechCard key={`${tech.name}-${i}`} tech={tech} className="mr-4" />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// Filtered view: a static, fully-visible wrapped row (no scroll/animation)
+// so a chosen category is easy to read without chasing moving cards.
+function StaticTechRow({ items }: { items: (typeof technologies)[0][] }) {
+  return (
+    <div className="flex flex-wrap justify-center gap-4">
+      {items.map((tech) => (
+        <TechCard key={tech.name} tech={tech} />
+      ))}
+    </div>
   )
 }
 
@@ -122,6 +153,7 @@ export function TechnologiesSection() {
 
   const filtered =
     active === 'all' ? technologies : technologies.filter((t2) => t2.category === active)
+  const sorted = [...filtered].sort((a, b) => LEVEL_COUNT[b.level] - LEVEL_COUNT[a.level])
 
   return (
     <SectionWrapper id="technologies" variant="alt">
@@ -152,20 +184,17 @@ export function TechnologiesSection() {
           ))}
         </div>
 
-        {/* Tech grid */}
+        {/* All: a continuously flowing marquee. Filtered: a static, fully-readable row. */}
         <AnimatePresence mode="wait">
           <motion.div
             key={active}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6"
+            transition={{ duration: 0.25 }}
             role="tabpanel"
           >
-            {filtered.map((tech, i) => (
-              <TechCard key={tech.name} tech={tech} index={i} />
-            ))}
+            {active === 'all' ? <MarqueeRow items={sorted} /> : <StaticTechRow items={sorted} />}
           </motion.div>
         </AnimatePresence>
 

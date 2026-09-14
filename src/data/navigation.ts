@@ -7,6 +7,7 @@ export const navItems: NavItem[] = [
   { key: 'technologies', href: '#technologies' },
   { key: 'experience', href: '#experience' },
   { key: 'education', href: '#education' },
+  { key: 'certifications', href: '#certifications' },
   { key: 'projects', href: '#projects' },
   { key: 'contact', href: '#contact' },
 ]

@@ -332,6 +332,15 @@
   .section-offset {
     scroll-margin-top: 5rem;
   }
+
+  /* Hide scrollbar on snap carousels that provide their own controls */
+  .scrollbar-hide {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 /* =====================================================

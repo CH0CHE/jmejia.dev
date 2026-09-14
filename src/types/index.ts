@@ -62,6 +62,14 @@ export interface Education {
   current?: boolean
 }
 
+export interface Certification {
+  id: string
+  name: Localized
+  institution: string
+  url: string
+  keywords: string[]
+}
+
 export interface SocialLink {
   label: string
   url: string
@@ -69,6 +77,14 @@ export interface SocialLink {
 }
 
 export interface NavItem {
-  key: 'home' | 'about' | 'technologies' | 'projects' | 'experience' | 'education' | 'contact'
+  key:
+    | 'home'
+    | 'about'
+    | 'technologies'
+    | 'projects'
+    | 'experience'
+    | 'education'
+    | 'certifications'
+    | 'contact'
   href: string
 }

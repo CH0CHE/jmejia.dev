@@ -12,6 +12,7 @@ interface Dictionary {
     projects: string
     experience: string
     education: string
+    certifications: string
     contact: string
     downloadCV: string
     downloadCVAria: string
@@ -62,6 +63,23 @@ interface Dictionary {
     eyebrow: string
     title: string
     description: string
+  }
+  certifications: {
+    eyebrow: string
+    title: string
+    description: string
+    searchPlaceholder: string
+    searchAria: string
+    clearSearchAria: string
+    institutionFilterAria: string
+    allInstitutions: string
+    noResults: string
+    resultCount: string
+    viewCertificate: string
+    viewCertificateAria: string
+    carouselAria: string
+    previousAria: string
+    nextAria: string
   }
   projects: {
     eyebrow: string
@@ -148,6 +166,7 @@ const es: Dictionary = {
     projects: 'Proyectos',
     experience: 'Experiencia',
     education: 'Educación',
+    certifications: 'Certificaciones',
     contact: 'Contacto',
     downloadCV: 'Descargar CV',
     downloadCVAria: 'Descargar curriculum vitae',
@@ -263,6 +282,24 @@ const es: Dictionary = {
     title: 'Educación',
     description: 'Formación académica en sistemas de información y telecomunicaciones.',
   },
+  certifications: {
+    eyebrow: 'Formación complementaria',
+    title: 'Certificaciones',
+    description:
+      'Cursos y certificaciones que complementan mi formación académica con conocimiento aplicado.',
+    searchPlaceholder: 'Buscar por tecnología o palabra clave…',
+    searchAria: 'Buscar certificaciones',
+    clearSearchAria: 'Limpiar búsqueda',
+    institutionFilterAria: 'Filtrar por institución',
+    allInstitutions: 'Todas',
+    noResults: 'No se encontraron certificaciones con esos filtros.',
+    resultCount: '{count} de {total} certificaciones',
+    viewCertificate: 'Ver certificado',
+    viewCertificateAria: 'Ver certificado de {name} (se abre en una pestaña nueva)',
+    carouselAria: 'Carrusel de certificaciones',
+    previousAria: 'Ver certificaciones anteriores',
+    nextAria: 'Ver más certificaciones',
+  },
   projects: {
     eyebrow: 'Portafolio',
     title: 'Proyectos que construí',
@@ -350,6 +387,7 @@ const en: Dictionary = {
     projects: 'Projects',
     experience: 'Experience',
     education: 'Education',
+    certifications: 'Certifications',
     contact: 'Contact',
     downloadCV: 'Download CV',
     downloadCVAria: 'Download resume',
@@ -463,6 +501,24 @@ const en: Dictionary = {
     eyebrow: 'Academic background',
     title: 'Education',
     description: 'Academic background in information systems and telecommunications.',
+  },
+  certifications: {
+    eyebrow: 'Continuing education',
+    title: 'Certifications',
+    description:
+      'Courses and certifications that complement my academic background with applied knowledge.',
+    searchPlaceholder: 'Search by technology or keyword…',
+    searchAria: 'Search certifications',
+    clearSearchAria: 'Clear search',
+    institutionFilterAria: 'Filter by institution',
+    allInstitutions: 'All',
+    noResults: 'No certifications matched those filters.',
+    resultCount: '{count} of {total} certifications',
+    viewCertificate: 'View certificate',
+    viewCertificateAria: 'View certificate for {name} (opens in a new tab)',
+    carouselAria: 'Certifications carousel',
+    previousAria: 'View previous certifications',
+    nextAria: 'View more certifications',
   },
   projects: {
     eyebrow: 'Portfolio',

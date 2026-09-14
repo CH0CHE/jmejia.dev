@@ -18,6 +18,8 @@ export const technologies: Technology[] = [
   { name: 'AWS Lambda', icon: 'aws', level: 'beginner', category: 'cloud' },
   { name: 'EC2', icon: 'aws', level: 'beginner', category: 'cloud' },
   { name: 'S3', icon: 'aws', level: 'beginner', category: 'cloud' },
+  { name: 'CloudFront', icon: 'aws', level: 'beginner', category: 'cloud' },
+  { name: 'Route53', icon: 'aws', level: 'beginner', category: 'cloud' },
   { name: 'SST', icon: 'sst', level: 'beginner', category: 'cloud' },
 
   // Database
@@ -30,4 +32,9 @@ export const technologies: Technology[] = [
   { name: 'GitHub', icon: 'github', level: 'advanced', category: 'devops' },
   { name: 'Linux', icon: 'linux', level: 'beginner', category: 'devops' },
   { name: 'Docker', icon: 'docker', level: 'beginner', category: 'devops' },
+
+  // Tools
+  { name: 'Vercel', icon: 'vercel', level: 'advanced', category: 'tools' },
+  { name: 'Claude', icon: 'claude', level: 'advanced', category: 'tools' },
+  { name: 'Playwright', icon: 'playwright', level: 'intermediate', category: 'tools' },
 ]
